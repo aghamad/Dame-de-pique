@@ -87,9 +87,6 @@ namespace DameDePique
 
         // Donne à chacun un positionnement 
         public void Starting() {
-
-            Console.WriteLine("Ass");
-
             // Celui qui a Deux de Trefle commence la partie
             Carte carte = new Carte(Couleur.Trefle, Valeur.Deux);
             // le joueur qui commence 
