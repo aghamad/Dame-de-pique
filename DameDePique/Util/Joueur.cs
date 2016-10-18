@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace DameDePique
 {
-    class Joueur
+    class Joueur: IComparable<Joueur>
     {
         // Les Carte(s) qu'il aura/a en main 
         public List<Carte> Paquet {
             get; set;
         }
 
-        public String Nom {
+        public string Nom {
             get; set;
         }
 
-        public String Image {
+        public string Image {
             get; set;
         }
 
@@ -32,19 +32,23 @@ namespace DameDePique
             get; set;
         }
 
-        public Joueur(String nom, String image) {
+        public Joueur(string nom, string image) {
             this.Nom = nom;
             this.Image = image;
             this.Couleurs = new List<int>() {0, 1, 2, 3}; /// 0 pour Pique, etc ... 
             this.Positionnement = 0; // Par defaut 
         }
 
-        public override String ToString() {
-            String deckEnString = "";
+        public override string ToString() {
+            string deckEnString = "";
             foreach (Carte carte in Paquet) {
                 deckEnString += carte.ToString() + "\n";
             }
             return deckEnString;
+        }
+
+        public int CompareTo(Joueur other) {
+            return Positionnement.CompareTo(other.Positionnement);
         }
 
     }

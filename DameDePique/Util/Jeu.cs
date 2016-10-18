@@ -98,9 +98,6 @@ namespace DameDePique
                     joueur = player;
                     break;
                 }
-                else {
-                    Console.WriteLine("No player with this card ");
-                }
             }
 
             // Son positionnement dans le array 
@@ -133,32 +130,50 @@ namespace DameDePique
             }
         }
 
+        // Le perdant commence le nouveau tour  
+        public void RegleLePos(Joueur perdant) {
+            // A faire 
+        }
+
+        /// <summary>
+        /// Trie en ordre croissant les joueurs avec leur positionnement 
+        /// </summary>
+        /// <returns> La liste des joueurs en ordre de commencement </returns>
+        public void OrderListAvecPos() {
+            ListeDesJoueurs.Sort();
+        }
+
         // Methode Ordinateur
         // A tour de role Thread.sleep pour les Ordinateurs
-        // Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue
-        public void putCarteInTable(Joueur joueur) {
-            // Carte random correspondant a la Coleur/Suit de la table 
+        // Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue de la partie 
+        public void putCarte(Joueur joueur)
+        {
             Carte carte = null;
             List<Carte> paquetDuJoueur = joueur.Paquet;
-            List<Carte> cartesValide = new List<Carte>(); // Les Cartes qui peuvent etre joue
+            List<Carte> cartesValide = new List<Carte>();
 
-            // Met les cartes qui peuvent etre joue dans une Liste
-            foreach(Carte card in paquetDuJoueur){
-                if (card.Color == Suit) {
+            // Met les cartes qui peuvent etre joue dans une Liste [cartesValide]
+            foreach (Carte card in paquetDuJoueur)
+            {
+                if (card.Color == Suit)
+                {
                     cartesValide.Add(carte);
                 }
             }
 
-            // Si elle n'est pas vide Alors le Joueur(Ordi) a une carte de la coleur en question qui peut etre joue
-            if (cartesValide.Count != 0) {
+            // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
+            if (cartesValide.Count != 0)
+            {
                 carte = cartesValide[random.Next(cartesValide.Count)];
             }
-            else {
+            else
+            {
                 // Get l'index de la Couleur
                 int index = (int)Suit;
                 List<int> couleursRestant = joueur.Couleurs;
-                if (couleursRestant.Count == 0) {
-                    // fin de la partie Le jouer n'a plus de suit a jouer 
+                if (couleursRestant.Count == 0)
+                {
+                    // Jouer n'a plus de carte / Jeu terminé 
                 }
                 // Apres enleve l'index de la couleur 
                 couleursRestant.Remove(index);
@@ -167,18 +182,19 @@ namespace DameDePique
                 // Nouvelle Suit du jeu 
                 this.Suit = (Couleur)indexCouleur;
                 // Rejoue pour mettre une carte 
-                putCarteInTable(joueur); 
+                putCarte(joueur);
             }
 
             // Ajout Success
-            if (carte != null) {
+            if (carte != null)
+            {
                 ListeCartesEnJeu.Add(carte);
-                // oublie pas de remove la carte du deck du joueur 
+                joueur.Paquet.Remove(carte);
             }
-            else {
-                // Jouer n'a plus de carte Partie terminé 
+            else
+            {
+                // Jouer n'a plus de carte / Jeu terminé 
             }
-
         }
 
         public void verification() {
