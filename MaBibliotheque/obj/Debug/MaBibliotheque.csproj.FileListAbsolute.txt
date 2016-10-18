@@ -1,0 +1,7 @@
+\\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\bin\Debug\MaBibliotheque.dll
+\\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\bin\Debug\MaBibliotheque.pdb
+\\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\obj\Debug\MaBibliotheque.dll
+\\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\obj\Debug\MaBibliotheque.pdb
+Z:\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\obj\Debug\MaBibliotheque.csprojResolveAssemblyReference.cache
+Z:\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\obj\Debug\MaBibliotheque.dll
+Z:\Documents\Visual Studio 2015\github\Dame-de-pique\MaBibliotheque\obj\Debug\MaBibliotheque.pdb

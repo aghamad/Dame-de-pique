@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaBibliotheque, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MaBibliotheque.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,28 +50,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Util\Carte.cs" />
-    <Compile Include="Main\FormJeu.cs">
+    <Compile Include="Model\Carte.cs" />
+    <Compile Include="Vue\FormJeu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\FormJeu.Designer.cs">
+    <Compile Include="Vue\FormJeu.Designer.cs">
       <DependentUpon>FormJeu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\Jeu.cs" />
-    <Compile Include="Util\Joueur.cs" />
-    <Compile Include="Util\Paquet.cs" />
-    <Compile Include="Main\PlayerForm.cs">
+    <Compile Include="Model\Jeu.cs" />
+    <Compile Include="Model\Joueur.cs" />
+    <Compile Include="Model\Paquet.cs" />
+    <Compile Include="Vue\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\PlayerForm.Designer.cs">
+    <Compile Include="Vue\PlayerForm.Designer.cs">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\Program.cs" />
+    <Compile Include="Vue\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Main\FormJeu.resx">
+    <EmbeddedResource Include="Vue\FormJeu.resx">
       <DependentUpon>FormJeu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\PlayerForm.resx">
+    <EmbeddedResource Include="Vue\PlayerForm.resx">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
