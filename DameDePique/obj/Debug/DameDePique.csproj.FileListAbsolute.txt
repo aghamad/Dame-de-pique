@@ -33,3 +33,18 @@ Z:\Documents\Visual Studio 2015\github\Dame-de-pique\DameDePique\obj\Debug\DameD
 \\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel2.jpg
 \\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel1.jpg
 \\psf\Home\Documents\Visual Studio 2015\github\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel0.jpg
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\DameDePique.exe.config
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.exe
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.pdb
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\Resources\izane.png
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel3.jpg
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel2.jpg
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel1.jpg
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\Resources\criminel0.jpg
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\DameDePique.exe
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\bin\Debug\DameDePique.pdb
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.csprojResolveAssemblyReference.cache
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.FormJeu.resources
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.PlayerForm.resources
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.Properties.Resources.resources
+C:\Users\user\Source\Repos\Dame-de-pique\DameDePique\obj\Debug\DameDePique.csproj.GenerateResource.Cache

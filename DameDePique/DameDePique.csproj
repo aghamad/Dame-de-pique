@@ -46,28 +46,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Carte.cs" />
-    <Compile Include="FormJeu.cs">
+    <Compile Include="Util\Carte.cs" />
+    <Compile Include="Main\FormJeu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormJeu.Designer.cs">
+    <Compile Include="Main\FormJeu.Designer.cs">
       <DependentUpon>FormJeu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Jeu.cs" />
-    <Compile Include="Joueur.cs" />
-    <Compile Include="Paquet.cs" />
-    <Compile Include="PlayerForm.cs">
+    <Compile Include="Util\Jeu.cs" />
+    <Compile Include="Util\Joueur.cs" />
+    <Compile Include="Util\Paquet.cs" />
+    <Compile Include="Main\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayerForm.Designer.cs">
+    <Compile Include="Main\PlayerForm.Designer.cs">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormJeu.resx">
+    <EmbeddedResource Include="Main\FormJeu.resx">
       <DependentUpon>FormJeu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayerForm.resx">
+    <EmbeddedResource Include="Main\PlayerForm.resx">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
