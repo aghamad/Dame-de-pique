@@ -12,7 +12,7 @@ namespace DameDePique
         public FormJeu()
         {
             InitializeComponent();
-            
+            //jai une grosse voiture
             // Disable resize
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
