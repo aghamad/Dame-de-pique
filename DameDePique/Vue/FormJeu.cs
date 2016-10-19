@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using ClassLibrary;
 
 namespace DameDePique
 
@@ -11,7 +12,7 @@ namespace DameDePique
         public FormJeu()
         {
             InitializeComponent();
-
+            
             // Disable resize
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
