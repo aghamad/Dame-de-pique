@@ -86,51 +86,6 @@ namespace DameDePique
             }
         }
 
-        // Donne à chacun un positionnement 
-        public void Starting() {
-            // Celui qui a Deux de Trefle commence la partie
-            Carte carte = new Carte(Couleur.Trefle, Valeur.Deux);
-            // le joueur qui commence 
-            Joueur joueur = null; 
-            foreach (Joueur player in ListeDesJoueurs) {
-                if (player.Paquet.Contains(carte)) {
-                    // 1 = Celui qui commence, apres c'est dans le sens horaire
-                    player.Positionnement = 1;
-                    joueur = player;
-                    break;
-                }
-            }
-
-            // Son positionnement dans le array 
-            int pos = ListeDesJoueurs.IndexOf(joueur);
-
-            switch (pos) {
-
-                case 0:
-                    // Assignation normale
-                    for (int i = 0; i < ListeDesJoueurs.Count; i++) {
-                        ListeDesJoueurs[i].Positionnement = i + 1;
-                    }
-                    break;
-                case 1:
-                    ListeDesJoueurs[0].Positionnement = 4;
-                    ListeDesJoueurs[2].Positionnement = 2;
-                    ListeDesJoueurs[3].Positionnement = 3;
-                    break;
-                case 2:
-                    ListeDesJoueurs[0].Positionnement = 3;
-                    ListeDesJoueurs[1].Positionnement = 4;
-                    ListeDesJoueurs[3].Positionnement = 2;
-                    break;
-                case 3:
-                    ListeDesJoueurs[0].Positionnement = 2;
-                    ListeDesJoueurs[1].Positionnement = 3;
-                    ListeDesJoueurs[2].Positionnement = 4;
-                    break;
-
-            }
-        }
-
         /// <summary>
         /// Au commencement du jeu, cette méthode assigne a tour de role une position a chaque joueur 
         /// </summary>
