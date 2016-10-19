@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClassLibrary;
 
 
 namespace DameDePique
@@ -19,7 +20,7 @@ namespace DameDePique
         {
             InitializeComponent();
         }
-
+        
         private void Form2_Load(object sender, EventArgs e)
         { //définit le path des images
             string path = Application.StartupPath + @"/Resources/";

@@ -71,3 +71,20 @@ M:\Repos\DameDePique\bin\Debug\DameDePique.exe
 M:\Repos\DameDePique\bin\Debug\DameDePique.pdb
 M:\Repos\DameDePique\obj\Debug\DameDePique.exe
 M:\Repos\DameDePique\obj\Debug\DameDePique.pdb
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\DameDePique.exe.config
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.exe
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.pdb
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.csprojResolveAssemblyReference.cache
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.FormJeu.resources
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.PlayerForm.resources
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.Properties.Resources.resources
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\obj\Debug\DameDePique.csproj.GenerateResource.Cache
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\Resources\izane.png
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\Resources\criminel3.jpg
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\Resources\criminel2.jpg
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\Resources\criminel1.jpg
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\Resources\criminel0.jpg
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\DameDePique.exe
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\DameDePique.pdb
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\ClassLibrary.dll
+Z:\Documents\Visual Studio 2015\git-hub\DameDePique\bin\Debug\ClassLibrary.pdb

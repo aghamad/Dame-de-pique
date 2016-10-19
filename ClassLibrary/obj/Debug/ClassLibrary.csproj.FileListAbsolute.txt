@@ -1,1 +1,5 @@
 M:\Repos\ClassLibrary\obj\Debug\ClassLibrary.csprojResolveAssemblyReference.cache
+Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\bin\Debug\ClassLibrary.dll
+Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\bin\Debug\ClassLibrary.pdb
+Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\obj\Debug\ClassLibrary.dll
+Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\obj\Debug\ClassLibrary.pdb

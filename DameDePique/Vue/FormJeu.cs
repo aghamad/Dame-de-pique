@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using ClassLibrary;
 
 namespace DameDePique
 
@@ -7,7 +8,7 @@ namespace DameDePique
     public partial class FormJeu : Form
     {
         private Jeu jeu;
-
+        
         public FormJeu()
         {
             InitializeComponent();

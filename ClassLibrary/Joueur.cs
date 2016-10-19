@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DameDePique
+namespace ClassLibrary
 {
-    class Joueur: IComparable<Joueur>
+    public class Joueur: IComparable<Joueur>
     {
         // Les Carte(s) qu'il aura/a en main 
         public List<Carte> Paquet {

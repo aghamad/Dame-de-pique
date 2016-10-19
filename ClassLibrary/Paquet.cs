@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DameDePique
+namespace ClassLibrary
 {
-    class Paquet : List<Carte>
+    public class Paquet : List<Carte>
     {
 
         static Random random = new Random();

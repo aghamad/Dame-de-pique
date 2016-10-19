@@ -1,15 +1,15 @@
-﻿using DameDePique.Model;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DameDePique
+namespace ClassLibrary
 {
-    class Jeu
+    public class Jeu
     {
-        static Random random = new Random();
+        public static Random random = new Random();
 
         // La classe Mere de notre Projet
         // Ces methodes seront called by le forme

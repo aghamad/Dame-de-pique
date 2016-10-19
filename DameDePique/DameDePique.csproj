@@ -46,17 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Carte.cs" />
-    <Compile Include="Model\ListJoueurs.cs" />
     <Compile Include="Vue\FormJeu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Vue\FormJeu.Designer.cs">
       <DependentUpon>FormJeu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Jeu.cs" />
-    <Compile Include="Model\Joueur.cs" />
-    <Compile Include="Model\Paquet.cs" />
     <Compile Include="Vue\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+      <Project>{a332b548-e3e8-4f70-af08-f2100446bc50}</Project>
+      <Name>ClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

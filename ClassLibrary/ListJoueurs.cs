@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DameDePique.Model
+namespace ClassLibrary
 {
-    class ListJoueurs: List<Joueur>
+    public class ListJoueurs: List<Joueur>
     {
         /// <summary>
         /// Le Joueur pointeur est soit le premier soit le perdant 
