@@ -27,8 +27,7 @@ namespace DameDePique
         }
 
         // Le 0 commence , le 1 suit, etc ... 
-        public int Positionnement
-        {
+        public int Positionnement {
             get; set;
         }
 

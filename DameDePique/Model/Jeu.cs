@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DameDePique.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace DameDePique
         // Ces methodes seront called by le forme
 
         // Trois autres Joueur(s) ordinateur et vous 
-        public List<Joueur> ListeDesJoueurs {
+        public ListJoueurs ListeDesJoueurs {
             get; set;
         }
 
@@ -62,7 +63,7 @@ namespace DameDePique
             Joueur playerH = new Joueur("Halim", "player-H.png");
 
             // AJOUT dans la liste de joueurs 
-            ListeDesJoueurs = new List<Joueur>();
+            ListeDesJoueurs = new ListJoueurs();
             ListeDesJoueurs.Add(player);
             ListeDesJoueurs.Add(playerA);
             ListeDesJoueurs.Add(playerN);
@@ -130,9 +131,29 @@ namespace DameDePique
             }
         }
 
-        // Le perdant commence le nouveau tour  
+        /// <summary>
+        /// Au commencement du jeu, cette méthode assigne a tour de role une position a chaque joueur 
+        /// </summary>
+        public void AssignerUnePosition() {
+            // Celui qui a la Carte (Deux de Trefle) commence le jeu 
+            Carte carte = new Carte(Couleur.Trefle, Valeur.Deux);
+
+            foreach (Joueur joueur in ListeDesJoueurs) {
+                if (joueur.Paquet.Contains(carte)) {
+                    ListeDesJoueurs.Premier = joueur;
+                }
+            }
+
+            ListeDesJoueurs.MoveAndAssigne();
+        }
+
+        /// <summary>
+        /// Cette méthode régle les positions pour le prochain tour  
+        /// </summary>
+        /// <param name="perdant"> Le joueur perdant dans le tour en question </param>
         public void RegleLePos(Joueur perdant) {
-            // A faire 
+            ListeDesJoueurs.Premier = perdant;
+            ListeDesJoueurs.MoveAndAssigne();
         }
 
         /// <summary>

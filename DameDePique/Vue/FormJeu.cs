@@ -24,7 +24,7 @@ namespace DameDePique
             this.jeu = new Jeu(player);
 
             jeu.distribuer();
-            jeu.Starting(); // Starting Initilaize un positionnement a tout le monde 
+            jeu.AssignerUnePosition(); // Starting Initilaize un positionnement a tout le monde 
 
             InitializePlayingField();
 
