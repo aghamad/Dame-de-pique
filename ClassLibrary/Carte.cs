@@ -20,14 +20,14 @@ namespace ClassLibrary
             get; set;
         }
 
-        // Set dans le constructeur 
-        public String Image {
+        public string Image {
             get; set;
         }
 
-        public Carte(Couleur coleur, Valeur value) {
+        public Carte(Couleur coleur, Valeur value, string image) {
             this.Color = coleur;
             this.Value = value;
+            this.Image = image;
         }
 
         public override String ToString() {
