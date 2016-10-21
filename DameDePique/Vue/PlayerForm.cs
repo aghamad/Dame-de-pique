@@ -29,7 +29,7 @@ namespace DameDePique
             for (int i = 0; i < 4; i++)
             {
                 nomFichier = path + "criminel" + i + ".jpg";
-                MessageBox.Show(nomFichier);
+                //MessageBox.Show(nomFichier);
                 imageListPersonnages.Images.Add(Image.FromFile(nomFichier));
                 //Associe la clé de l’image(Nom du fichier) à un indice dans imageList
                 this.imageListPersonnages.Images.SetKeyName(i, nomFichier);
@@ -66,6 +66,14 @@ namespace DameDePique
                 return;
             }
             
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Joueur joueur = new Joueur("bbc", "image.png");
+            Application.Run(new FormJeu(joueur));
+            this.Close();
+
         }
     }
 }

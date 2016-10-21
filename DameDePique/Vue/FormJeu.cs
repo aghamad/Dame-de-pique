@@ -11,7 +11,7 @@ namespace DameDePique
         private List<PictureBox> pictureBoxList;
         private string pathCarteImages;
 
-        public FormJeu()
+        public FormJeu(Joueur joueur)
         {
             InitializeComponent();
             // Disable resize
