@@ -30,6 +30,11 @@ namespace ClassLibrary
             this.Image = image;
         }
 
+        public Carte(Couleur coleur, Valeur value) {
+            this.Color = coleur;
+            this.Value = value;
+        }
+
         public override String ToString() {
             return this.Color.ToString() + ", " + this.Value.ToString();
         }

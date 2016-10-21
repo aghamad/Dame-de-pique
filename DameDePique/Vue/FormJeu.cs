@@ -1,51 +1,81 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using ClassLibrary;
+using System.Collections.Generic;
 
 namespace DameDePique
-
 {
     public partial class FormJeu : Form
     {
         private Jeu jeu;
-        
+        private List<PictureBox> pictureBoxList;
+        private string pathCarteImages;
+
         public FormJeu()
         {
             InitializeComponent();
-            //jai une grosse voiture
             // Disable resize
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            // Path
+            this.pathCarteImages = Application.StartupPath + @"/CarteImages/";
 
             // Ouvre form de style ou l'usager choisit son bonhomme et ecrit son nom (a faire)
             Joueur player = new Joueur("Moi", "image.png");
 
-            // Commencement du jeu / Intialize 
+            // Commencement du jeu / Intialize le Jeu avec le Joueur 
             this.jeu = new Jeu(player);
-
             jeu.distribuer();
-            jeu.AssignerUnePosition(); // Starting Initilaize un positionnement a tout le monde 
+            jeu.AssignerUnePosition();
 
-            InitializePlayingField();
-
-            if (jeu.Player.Positionnement == 1)
-            {
-                // highlight sa carte 
-                comboBox1.BackColor = Color.Yellow;
-            }
-            else {
-
-            }
-            
+            // Les Cartes du Joueur 
+            InitializeDeckField();
 
         }
 
-        // met les cartes du joueur non ordinateur dans ses mains
-        public void InitializePlayingField() {
-            for (int i = 0; i < jeu.Player.Paquet.Count; i++) {
-                comboBox1.Items.Add(jeu.Player.Paquet[i]);
+
+        private void InitializeDeckField() {
+            this.pictureBoxList = new List<PictureBox>();
+            List<Carte> paquetDuJoueur = jeu.Player.Paquet;
+
+            for (int i = 0; i < paquetDuJoueur.Count; i++) {
+                PictureBox pictureBox = new PictureBox {
+                    Name = "pictureBox" + i,
+                    Size = new Size(80, 120),
+                    Location = new Point(i * 80, 1),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    SizeMode = PictureBoxSizeMode.Zoom
+                };
+
+                // Abddel fix ceci ca crash!! Les images sont sauvergarder avec leur extention .png exemple: 1.png
+                pictureBox.Image = Image.FromFile(pathCarteImages + paquetDuJoueur[i].Image); 
+                pictureBoxList.Add(pictureBox);
             }
+
+            // Les Mettres (PictureBoxes) sur la Table
+            foreach (PictureBox pictureBox in pictureBoxList) {
+                panelDisplay.Controls.Add(pictureBox);
+            }
+
+        }
+
+
+
+        // met les cartes du joueur non ordinateur dans ses mains
+        /*
+        InitializePlayingField();
+
+        if (jeu.Player.Positionnement == 1)
+        {
+            // highlight sa carte 
+            comboBox1.BackColor = Color.Yellow;
+        }
+        else {
+
+        }
+        */
+        public void InitializePlayingFieldAss() {
 
             for (int i = 0; i < jeu.PlayerA.Paquet.Count; i++) {
                 comboBox2.Items.Add(jeu.PlayerA.Paquet[i]);
@@ -60,7 +90,6 @@ namespace DameDePique
                 comboBox4.Items.Add(jeu.PlayerH.Paquet[i]);
             }
 
-            comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
             comboBox4.SelectedIndex = 0;
