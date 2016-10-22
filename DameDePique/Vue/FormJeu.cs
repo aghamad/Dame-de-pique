@@ -2,54 +2,82 @@
 using System.Windows.Forms;
 using ClassLibrary;
 using System.Collections.Generic;
+using System;
+using System.Drawing.Imaging;
 
 namespace DameDePique
 {
     public partial class FormJeu : Form
     {
         private Jeu jeu;
-        private List<PictureBox> pictureBoxList;
         private string pathCarteImages;
+        // Chaque PictureBox Sera assigne a une Carte
+        private List<PictureBox> pictureBoxList;
+        private List<Carte> paquetDuJoueur;
+        // Suit/ Couleur du Jeu
+        private Couleur suit;
 
-        public FormJeu(Joueur joueur)
-        {
+        // PictureBoxe List et list des Cartes joue
+        private List<PictureBox> pictureBoxJoue;
+        private List<Carte> cartesJoue;
+
+        public FormJeu(Joueur joueur) {
             InitializeComponent();
             // Disable resize
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             // Path
-            this.pathCarteImages = Application.StartupPath + @"/CarteImages/";
+            this.pathCarteImages = Application.StartupPath + @"\CarteImages\";
 
             // Ouvre form de style ou l'usager choisit son bonhomme et ecrit son nom (a faire)
-            Joueur player = new Joueur("Moi", "image.png");
+            Joueur player = new Joueur("Bledard", "image.png");
 
             // Commencement du jeu / Intialize le Jeu avec le Joueur 
             this.jeu = new Jeu(player);
             jeu.distribuer();
             jeu.AssignerUnePosition();
+            // Le Paquet du Joueur Ajoute et Delete a partir de cette Liste
+            this.paquetDuJoueur = jeu.Player.Paquet;
+            this.pictureBoxList = new List<PictureBox>();
+
+            // Pour le Jeu
+            this.pictureBoxJoue = new List<PictureBox>();
+            pictureBoxJoue.Add(pictureBox1);
+            pictureBoxJoue.Add(pictureBox2);
+            pictureBoxJoue.Add(pictureBox3);
+            pictureBoxJoue.Add(pictureBox4);
+
+            Size size = new Size(80, 120);
+            for (int i = 0; i < pictureBoxJoue.Count; i++) {
+                pictureBoxJoue[i].Visible = false;
+                pictureBoxJoue[i].Size = size;
+            }
+
 
             // Les Cartes du Joueur 
             InitializeDeckField();
+            UpdateSuit();
+            DisableWithSuit();
 
         }
 
 
         private void InitializeDeckField() {
-            this.pictureBoxList = new List<PictureBox>();
-            List<Carte> paquetDuJoueur = jeu.Player.Paquet;
+            this.pictureBoxList.Clear();
 
             for (int i = 0; i < paquetDuJoueur.Count; i++) {
                 PictureBox pictureBox = new PictureBox {
                     Name = "pictureBox" + i,
-                    Size = new Size(80, 120),
-                    Location = new Point(i * 80, 1),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    SizeMode = PictureBoxSizeMode.Zoom
+                    Size = new Size(80, 120), // W and H 
+                    Location = new Point(i * 80, 0),
+                    // BorderStyle = BorderStyle.FixedSingle,
+                    // SizeMode = PictureBoxSizeMode.Zoom
                 };
 
-                // Abddel fix ceci ca crash!! Les images sont sauvergarder avec leur extention .png exemple: 1.png
-                pictureBox.Image = Image.FromFile(pathCarteImages + paquetDuJoueur[i].Image); 
+                pictureBox.Image = Image.FromFile(pathCarteImages + paquetDuJoueur[i].Image);
+                // Click Listener
+                pictureBox.Click += new System.EventHandler(Carte_Click);
                 pictureBoxList.Add(pictureBox);
             }
 
@@ -60,47 +88,53 @@ namespace DameDePique
 
         }
 
-
-
-        // met les cartes du joueur non ordinateur dans ses mains
-        /*
-        InitializePlayingField();
-
-        if (jeu.Player.Positionnement == 1)
-        {
-            // highlight sa carte 
-            comboBox1.BackColor = Color.Yellow;
-        }
-        else {
-
-        }
-        */
-        public void InitializePlayingFieldAss() {
-
-            for (int i = 0; i < jeu.PlayerA.Paquet.Count; i++) {
-                comboBox2.Items.Add(jeu.PlayerA.Paquet[i]);
-            }
-
-            for (int i = 0; i < jeu.PlayerN.Paquet.Count; i++) {
-                comboBox3.Items.Add(jeu.PlayerN.Paquet[i]);
-            }
-
-            for (int i = 0; i < jeu.PlayerH.Paquet.Count; i++)
-            {
-                comboBox4.Items.Add(jeu.PlayerH.Paquet[i]);
-            }
-
-            comboBox2.SelectedIndex = 0;
-            comboBox3.SelectedIndex = 0;
-            comboBox4.SelectedIndex = 0;
-
-
-            label1.Text = jeu.Player.Positionnement + "";
-            label2.Text = jeu.PlayerA.Positionnement + "";
-            label3.Text = jeu.PlayerN.Positionnement + "";
-            label4.Text = jeu.PlayerH.Positionnement + ""; 
+        private void UpdateSuit() {
+            this.suit = jeu.Suit; 
         }
 
+        /// <summary>
+        /// Disables les Cartes qui ne peuvent pas etre joue
+        /// </summary>
+        private void DisableWithSuit() {
+            // Disable Avec le Suit
+            foreach (PictureBox pictureBox in pictureBoxList) {
+                int pos = pictureBoxList.IndexOf(pictureBox);
+                Carte carte = paquetDuJoueur[pos];
+                if (carte.Color != suit) {
+                    // Disable them
+                    pictureBox.Enabled = false;
+                    pictureBox.Image = Image.FromFile(pathCarteImages + "0.png");
+                }
+            }
+        }
 
+        private void Carte_Click(object sender, EventArgs e) {
+
+            if (pictureBox1.Visible == false) {
+                for (int i = 0; i < pictureBoxJoue.Count; i++){
+                    pictureBoxJoue[i].Visible = true;
+                }
+            }
+
+            PictureBox pictureBox = (PictureBox) sender;
+            int position = pictureBoxList.IndexOf(pictureBox);
+            Carte carte = paquetDuJoueur[position];
+
+
+            // A la fin Remove
+            if (panelDisplay.Controls.Contains(pictureBox)) {
+                // Add
+                pictureBox1.Image = Image.FromFile(pathCarteImages + carte.Image);
+                // Remove in Runtime
+                pictureBox.Click -= new System.EventHandler(this.Carte_Click);
+                panelDisplay.Controls.Remove(pictureBox);
+                pictureBox.Dispose();
+                // Remove from this Carte Paquet du Joueur
+                //this.paquetDuJoueur.Remove(carte);
+                //InitializeDeckField();
+                // Methode qui fuck up tout InitializeDeckField();
+            }
+        }
+   
     }
 }

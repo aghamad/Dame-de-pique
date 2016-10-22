@@ -4,3 +4,8 @@ Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\bin\Debug\ClassLibrary.pdb
 Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\obj\Debug\ClassLibrary.dll
 Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\obj\Debug\ClassLibrary.pdb
 Z:\Documents\Visual Studio 2015\git-hub\ClassLibrary\obj\Debug\ClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\bin\Debug\ClassLibrary.dll
+C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\bin\Debug\ClassLibrary.pdb
+C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\obj\Debug\ClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\obj\Debug\ClassLibrary.dll
+C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\obj\Debug\ClassLibrary.pdb
