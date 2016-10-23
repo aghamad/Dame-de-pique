@@ -71,7 +71,7 @@ namespace DameDePique
         private void button1_Click_1(object sender, EventArgs e)
         {
             Joueur joueur = new Joueur("bbc", "image.png");
-            Application.Run(new FormJeu(joueur));
+            // Application.Run(new FormJeu(joueur));
             this.Close();
 
         }

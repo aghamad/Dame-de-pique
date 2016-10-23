@@ -79,12 +79,12 @@
             this.imageListPersonnages.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListPersonnages.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // pictureBox1
+            // pictureBoxMyCarte
             // 
             this.pictureBox1.Image = global::DameDePique.Properties.Resources.izane;
             this.pictureBox1.InitialImage = global::DameDePique.Properties.Resources.izane;
             this.pictureBox1.Location = new System.Drawing.Point(644, 146);
-            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Name = "pictureBoxMyCarte";
             this.pictureBox1.Size = new System.Drawing.Size(423, 417);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;

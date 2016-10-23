@@ -77,6 +77,18 @@ namespace ClassLibrary
 
             // Couleur trefle qui commence
             this.Suit = Couleur.Trefle;
+            // Distribuer
+            distribuer();
+            // Position
+            AssignerUnePosition();
+            OrderListAvecPos();
+        }
+
+        // Ordi you dont have access to picturebox here 
+        public void Play() {
+            foreach (Joueur joueur in ListeDesJoueurs) {
+
+            }
         }
 
         // Distribue les cartes aux Joueurs
