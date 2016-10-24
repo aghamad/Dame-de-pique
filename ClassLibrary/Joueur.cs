@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    public class Joueur: IComparable<Joueur>
+    public class Joueur: IComparable<Joueur>, IEquatable<Joueur>
     {
         // Les Carte(s) qu'il aura/a en main 
         public List<Carte> Paquet {
@@ -48,6 +48,12 @@ namespace ClassLibrary
 
         public int CompareTo(Joueur other) {
             return Positionnement.CompareTo(other.Positionnement);
+        }
+
+        // + Image pour plus de verification 
+        public bool Equals(Joueur other) {
+            return this.Nom == other.Nom &&
+                this.Image == other.Image;
         }
 
     }

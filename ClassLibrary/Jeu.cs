@@ -23,29 +23,53 @@ namespace ClassLibrary
             get; set;
         }
 
-        // Vous
+        // ------ Vous
         public Joueur Player
         {
-            get { return ListeDesJoueurs[0]; }
+            get { return getJoueur(PlayerStatic); }
         }
 
         // Ordinateur
-        public Joueur PlayerA {
-            get { return ListeDesJoueurs[1]; }
+        public Joueur PlayerA
+        {
+            get { return getJoueur(PlayerAStatic); }
         }
 
         // Ordinateur
         public Joueur PlayerN
         {
-            get { return ListeDesJoueurs[2]; }
+            get { return getJoueur(PlayerNStatic); }
         }
 
         // Ordinateur
-        public Joueur PlayerH
-        {
-            get { return ListeDesJoueurs[3]; }
+        public Joueur PlayerH {
+            get { return getJoueur(PlayerHStatic); }
         }
 
+        // ----- Vous / STATIC: Ne Quitte pas la liste 
+        public Joueur PlayerStatic
+        {
+            get; set;
+        }
+
+        // Ordinateur
+        public Joueur PlayerAStatic {
+            get; set;
+        }
+
+        // Ordinateur
+        public Joueur PlayerNStatic
+        {
+            get; set;
+        }
+
+        // Ordinateur
+        public Joueur PlayerHStatic
+        {
+            get; set;
+        }
+
+        // ----- DECK DU JEU 
         // Les Cartes 
         public Paquet Deck {
             get; set;
@@ -58,16 +82,17 @@ namespace ClassLibrary
 
         // L'usager choisit d'abord son nom et son image et apres le jeu commence
         public Jeu(Joueur player) {
-            Joueur playerA = new Joueur("Ahmad", "player-A.png");
-            Joueur playerN = new Joueur("Nassim", "player-N.png");
-            Joueur playerH = new Joueur("Halim", "player-H.png");
+            this.PlayerStatic = player;
+            this.PlayerAStatic = new Joueur("Ahmad", "player-A.png");
+            this.PlayerNStatic = new Joueur("Nassim", "player-N.png");
+            this.PlayerHStatic = new Joueur("Halim", "player-H.png");
 
             // AJOUT dans la liste de joueurs 
             ListeDesJoueurs = new ListJoueurs();
-            ListeDesJoueurs.Add(player);
-            ListeDesJoueurs.Add(playerA);
-            ListeDesJoueurs.Add(playerN);
-            ListeDesJoueurs.Add(playerH);
+            ListeDesJoueurs.Add(PlayerStatic);
+            ListeDesJoueurs.Add(PlayerAStatic);
+            ListeDesJoueurs.Add(PlayerNStatic);
+            ListeDesJoueurs.Add(PlayerHStatic);
 
             // Initialize le Deck 
             this.Deck = new Paquet(); // Creation des Carte(s) 
@@ -81,14 +106,15 @@ namespace ClassLibrary
             distribuer();
             // Position
             AssignerUnePosition();
-            OrderListAvecPos();
         }
 
-        // Ordi you dont have access to picturebox here 
-        public void Play() {
+        private Joueur getJoueur(Joueur player) {
             foreach (Joueur joueur in ListeDesJoueurs) {
-
+                if (joueur.Equals(player)) {
+                    return joueur;
+                }
             }
+            return null;
         }
 
         // Distribue les cartes aux Joueurs
@@ -134,55 +160,46 @@ namespace ClassLibrary
         // Methode Ordinateur
         // A tour de role Thread.sleep pour les Ordinateurs
         // Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue de la partie 
-        public void putCarte(Joueur joueur)
-        {
+        public Carte putCarte(Joueur joueur) {
             Carte carte = null;
             List<Carte> paquetDuJoueur = joueur.Paquet;
             List<Carte> cartesValide = new List<Carte>();
-
             // Met les cartes qui peuvent etre joue dans une Liste [cartesValide]
-            foreach (Carte card in paquetDuJoueur)
-            {
-                if (card.Color == Suit)
-                {
-                    cartesValide.Add(carte);
+            foreach (Carte card in paquetDuJoueur) {
+                if (card.Color.Equals(Suit)) {
+                    cartesValide.Add(card);
                 }
             }
-
+            //Console.WriteLine(cartesValide[0].Value + " Ass");
             // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
-            if (cartesValide.Count != 0)
-            {
-                carte = cartesValide[random.Next(cartesValide.Count)];
+            if (cartesValide.Count != 0)  {
+                carte = cartesValide[0];
+                ListeCartesEnJeu.Add(carte);
+                joueur.Paquet.Remove(carte);
+                return carte;
             }
-            else
-            {
+            else {
                 // Get l'index de la Couleur
-                int index = (int)Suit;
+                int index = (int) Suit;
                 List<int> couleursRestant = joueur.Couleurs;
-                if (couleursRestant.Count == 0)
-                {
+                if (couleursRestant.Count == 0) {
                     // Jouer n'a plus de carte / Jeu terminé 
+                    return null;
                 }
-                // Apres enleve l'index de la couleur 
+                // Apres enleve l'index de la couleur dans joueur 
                 couleursRestant.Remove(index);
                 // L'ordinateur joue une autre Couleur/Suit random et ne prend pas en consideration la couleur qu'il ne possede pas 
                 int indexCouleur = joueur.Couleurs[random.Next(couleursRestant.Count)];
                 // Nouvelle Suit du jeu 
-                this.Suit = (Couleur)indexCouleur;
+                this.Suit = (Couleur)indexCouleur; // il faut update le suit dans FormJeu alors 
                 // Rejoue pour mettre une carte 
                 putCarte(joueur);
             }
 
-            // Ajout Success
-            if (carte != null)
-            {
-                ListeCartesEnJeu.Add(carte);
-                joueur.Paquet.Remove(carte);
-            }
-            else
-            {
-                // Jouer n'a plus de carte / Jeu terminé 
-            }
+   
+            // Jouer n'a plus de carte / Jeu terminé 
+            return null;
+            
         }
 
         public void verification() {

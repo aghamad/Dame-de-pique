@@ -4,6 +4,7 @@ using ClassLibrary;
 using System.Collections.Generic;
 using System;
 using System.Drawing.Imaging;
+using System.Threading;
 
 namespace DameDePique
 {
@@ -13,11 +14,14 @@ namespace DameDePique
         private string pathCarteImages;
         // Suit/ Couleur du Jeu
         private Couleur suit;
-        // PictureBoxe List et list des Cartes joue
-        private List<PictureBox> pictureBoxJoue;
 
         // Les Cartes du Joueur
         private Dictionary<PictureBox, Carte> mesCartes;
+
+        // Les Quatres PictureBoxes qui seront en jeu 
+        private PictureBox[] pictureBoxes;
+        // Les PictureBoxes des Joueurs Ordinateurs 
+        private Dictionary<Joueur, PictureBox> mesPictureBoxes;
 
         public FormJeu(Joueur joueur) {
             InitializeComponent();
@@ -35,18 +39,21 @@ namespace DameDePique
             this.jeu = new Jeu(player);
 
             // Pour le Jeu les 4 Cartes Joue
-            this.pictureBoxJoue = new List<PictureBox>();
-            pictureBoxJoue.Add(pictureBoxMyCarte);
-            pictureBoxJoue.Add(pictureBox2);
-            pictureBoxJoue.Add(pictureBox3);
-            pictureBoxJoue.Add(pictureBox4);
+            this.pictureBoxes = new PictureBox[] { pictureBoxMyCarte, pictureBox2, pictureBox3, pictureBox4}; 
+
+            // Assignation 
+            this.mesPictureBoxes = new Dictionary<Joueur, PictureBox>();
+            for (int i = 0; i < jeu.ListeDesJoueurs.Count; i++) {
+                // Player , pictureBoxMyCarte 
+                mesPictureBoxes.Add(jeu.ListeDesJoueurs[i], pictureBoxes[i]);
+            }
 
             // Les Cartes du Joueur 
             InitializeMesCartes();
             InitializeDeckField();
             UpdateSuit();
-            //DisableWithSuit();
-
+            // AI Play 
+            Play();
         }
         
         // Only called once / In order to Update the Panel / Create an Update method
@@ -76,7 +83,7 @@ namespace DameDePique
             }
         }
 
-        // Get La Carte associated with the PictureBox
+        // Get La Carte associated with the PictureBox / Joueur 
         private Carte GetCarteWithPicBox(PictureBox pictureBox) {
             Carte carte = null;
             foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
@@ -89,13 +96,6 @@ namespace DameDePique
 
 
         private void Carte_Click(object sender, EventArgs e) {
-
-            if (pictureBoxMyCarte.Visible == false) {
-                for (int i = 0; i < pictureBoxJoue.Count; i++) {
-                    pictureBoxJoue[i].Visible = true;
-                }
-            }
-
             PictureBox pictureBox = (PictureBox) sender;
 
             if (panelDisplay.Controls.Contains(pictureBox)) {
@@ -111,16 +111,17 @@ namespace DameDePique
                     // Remove from Dictionnary mesCartes
                     mesCartes.Remove(pictureBox);
                     jeu.Player.Paquet.Remove(carte);
+                    
                 }
             }
         }
 
-        private void UpdateSuit() {
+        public void UpdateSuit() {
             this.suit = jeu.Suit;
         }
 
         /// <summary>
-        /// Disables les PictureBoxes/Cartes qui ne peuvent pas etre joue
+        /// Disables les PictureBoxes/Cartes qui ne peuvent pas etre joue Function not used
         /// </summary>
         private void DisableWithSuit() {
             // Disable Avec le Suit
@@ -147,15 +148,13 @@ namespace DameDePique
             }
 
             // Il a des Cartes de se Suit
-            if (cartesValide.Count > 0 && carte.Color.Equals(suit))
-            {
+            if (cartesValide.Count > 0 && carte.Color.Equals(suit)) {
                 this.jeu.ListeCartesEnJeu.Add(carte);
                 return true;
             }
             else if (cartesValide.Count == 0) {
                 // Ca veut dire qu'il faut changer de Suit, il n'a pas plus de carte de cette suit 
                 int index = (int) suit;
-                MessageBox.Show("Changement de Suit");
                 //reput la carte de cette suit
                 this.jeu.Player.Couleurs.Remove(index); // Il n'a plus de cette Couleur 
                 this.suit = carte.Color;
@@ -168,54 +167,40 @@ namespace DameDePique
             return false;
         }
 
-        /*
-        // Methode Joueur 
-        // Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue de la partie 
-        public void putCarte(Carte carte) {
-            List<Carte> cartesValide = new List<Carte>();
-
-            // Met les cartes qui peuvent etre joue dans une Liste [cartesValide]
-            foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
-                if (entry.Value.Color.Equals(suit)) {
-                    cartesValide.Add(entry.Value);
+        // Engine Each Round
+        private async void Play() {
+            // Au commencement et quand un joueur perd 
+            // Sorted by positonnement, alors le premier commence 
+            this.jeu.OrderListAvecPos();
+            foreach (Joueur joueur in jeu.ListeDesJoueurs) {
+                // Joueur non Ordi 
+                if (joueur.Nom.Equals(jeu.Player.Nom)) {
+                    //await panelDisplay.Controls.WhenClicked();
+                    // allowed to put cards
+                    // check if first and higlight trefle de deux MessageBox.Show("Shit im first leave and don't forget to hightligth card");
                 }
-            }
-
-            // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
-            if (cartesValide.Count != 0) {
-                carte = cartesValide[random.Next(cartesValide.Count)];
-            }
-            else
-            {
-                // Get l'index de la Couleur
-                int index = (int)Suit;
-                List<int> couleursRestant = joueur.Couleurs;
-                if (couleursRestant.Count == 0)
-                {
-                    // Jouer n'a plus de carte / Jeu terminé 
+                else  {
+                    // Ordinateur
+                    
+                    Carte carte = jeu.putCarte(joueur);
+                    //MessageBox.Show(carte.Color + " " + carte.Value);
+                    if (carte == null) {
+                        MessageBox.Show("Fin");
+                    } else {
+                        // Get et set sa carte dans le picturebox
+                        mesPictureBoxes[joueur].Image = Image.FromFile(pathCarteImages + carte.Image);
+                        this.jeu.ListeCartesEnJeu.Add(carte);
+                        joueur.Paquet.Remove(carte);
+                        UpdateSuit(); // A chaque fois afin de verifier si le suit a change 
+                        Thread.Sleep(1);
+                    }
                 }
-                // Apres enleve l'index de la couleur 
-                couleursRestant.Remove(index);
-                // L'ordinateur joue une autre Couleur/Suit random et ne prend pas en consideration la couleur qu'il ne possede pas 
-                int indexCouleur = joueur.Couleurs[random.Next(couleursRestant.Count)];
-                // Nouvelle Suit du jeu 
-                this.Suit = (Couleur)indexCouleur;
-                // Rejoue pour mettre une carte 
-                putCarte(joueur);
-            }
-
-            // Ajout Success
-            if (carte != null)
-            {
-                ListeCartesEnJeu.Add(carte);
-                joueur.Paquet.Remove(carte);
-            }
-            else
-            {
-                // Jouer n'a plus de carte / Jeu terminé 
             }
         }
-        */
+
+        // dans la methode verification order by perdant dans jeu.cs 
+
+        
 
     }
 }

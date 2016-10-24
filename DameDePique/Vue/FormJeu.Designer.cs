@@ -41,41 +41,41 @@
             // 
             // pictureBoxMyCarte
             // 
-            this.pictureBoxMyCarte.Location = new System.Drawing.Point(494, 356);
+            this.pictureBoxMyCarte.BackColor = System.Drawing.Color.Green;
+            this.pictureBoxMyCarte.Location = new System.Drawing.Point(494, 345);
             this.pictureBoxMyCarte.Name = "pictureBoxMyCarte";
-            this.pictureBoxMyCarte.Size = new System.Drawing.Size(73, 120);
+            this.pictureBoxMyCarte.Size = new System.Drawing.Size(73, 97);
             this.pictureBoxMyCarte.TabIndex = 8;
             this.pictureBoxMyCarte.TabStop = false;
-            this.pictureBoxMyCarte.Visible = false;
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Green;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox2.Location = new System.Drawing.Point(386, 286);
+            this.pictureBox2.Location = new System.Drawing.Point(415, 286);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(73, 120);
+            this.pictureBox2.Size = new System.Drawing.Size(73, 97);
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Visible = false;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(599, 286);
+            this.pictureBox3.BackColor = System.Drawing.Color.Green;
+            this.pictureBox3.Location = new System.Drawing.Point(573, 286);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(73, 120);
+            this.pictureBox3.Size = new System.Drawing.Size(73, 97);
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Visible = false;
             // 
             // pictureBox4
             // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Green;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Location = new System.Drawing.Point(494, 193);
+            this.pictureBox4.Location = new System.Drawing.Point(494, 224);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(73, 120);
+            this.pictureBox4.Size = new System.Drawing.Size(73, 97);
             this.pictureBox4.TabIndex = 11;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Visible = false;
             // 
             // panelDisplay
             // 
