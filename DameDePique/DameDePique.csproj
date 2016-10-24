@@ -289,6 +289,10 @@
     <Content Include="CarteImages\9.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\0.png" />
+    <Content Include="Resources\1.png" />
+    <Content Include="Resources\2.png" />
+    <Content Include="Resources\3.png" />
     <Content Include="Resources\background.png" />
   </ItemGroup>
   <ItemGroup>
