@@ -91,7 +91,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::DameDePique.Properties.Resources.background;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1075, 709);
             this.Controls.Add(this.panelDisplay);
             this.Controls.Add(this.pictureBox4);
@@ -101,6 +101,7 @@
             this.DoubleBuffered = true;
             this.Name = "FormJeu";
             this.Text = "Dame de Pique";
+            this.Shown += new System.EventHandler(this.FormJeu_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMyCarte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

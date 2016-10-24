@@ -9,16 +9,22 @@ namespace ClassLibrary
 {
     public static class Utils
     {
-        public static Task WhenClicked(this Control target)
+        public static Task WhenClicked(this Control target, int index)
         {
             var tcs = new TaskCompletionSource<object>();
             EventHandler onClick = null;
             onClick = (sender, e) =>
             {
-                target.Click -= onClick;
+                for (int i = 0; i < index - 1; i++)
+                {
+                    target.Controls[i].Click -= onClick;
+                }
                 tcs.TrySetResult(null);
             };
-            target.Click += onClick;
+            for (int i = 0; i < index - 1; i++)
+            {
+                target.Controls[i].Click += onClick;
+            }
             return tcs.Task;
         }
     }

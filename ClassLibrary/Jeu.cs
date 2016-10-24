@@ -19,7 +19,7 @@ namespace ClassLibrary
             get; set;
         }
 
-        public List<Carte> ListeCartesEnJeu {
+        public Dictionary<Carte, Joueur> ListeCartesEnJeu {
             get; set;
         }
 
@@ -80,6 +80,12 @@ namespace ClassLibrary
             get; set;
         }
 
+        // Marque la fin
+        // Si un Joueur n'a plus de carte 
+        public bool Fin {
+            get; set;
+        }
+
         // L'usager choisit d'abord son nom et son image et apres le jeu commence
         public Jeu(Joueur player) {
             this.PlayerStatic = player;
@@ -98,7 +104,7 @@ namespace ClassLibrary
             this.Deck = new Paquet(); // Creation des Carte(s) 
 
             // Initialize la liste pour mettre les Cartes en jeu (4 cartes en total) 
-            this.ListeCartesEnJeu = new List<Carte>();
+            this.ListeCartesEnJeu = new Dictionary<Carte, Joueur>();
 
             // Couleur trefle qui commence
             this.Suit = Couleur.Trefle;
@@ -106,6 +112,51 @@ namespace ClassLibrary
             distribuer();
             // Position
             AssignerUnePosition();
+        }
+
+        public Dictionary<Joueur, int> Verification() {
+
+            // Le Dict qui sera send back to FormJeu
+            Dictionary<Joueur, int> info = new Dictionary<Joueur, int>();
+
+            //  Il suffit d'essayer de ne pas ramasser de cartes de coeurs ou la dame de pique.
+            //  Une carte de type coeurs = 1 point et la dame de pique = 12 points. 
+            //  La carte la plus forte de la sorte demandée remporte la levée
+            // Pointeur
+            Carte highest = null;
+            foreach (KeyValuePair<Carte, Joueur> entry in ListeCartesEnJeu) {
+                // Le pointeur sera le dernier
+                highest = entry.Key;
+            }
+
+            // Regarde avec la position de l'enum
+            foreach (KeyValuePair<Carte, Joueur> entry in ListeCartesEnJeu) {
+                if ((int)highest.Value < (int)entry.Key.Value) {
+                    highest = entry.Key;
+                }
+            }
+
+            int pointage = 0;
+            // Ceci est le perdant 
+            // Adjust l'info du Joueur perdant
+            Joueur perdant = ListeCartesEnJeu[highest];
+            Carte dameDePique = new Carte(Couleur.Pique, Valeur.Dame);
+            // Apres il faut voir si le perdant a rammaser une carte de type coueurs ou la dame de pique 
+            foreach (KeyValuePair<Carte, Joueur> entry in ListeCartesEnJeu) {
+                if (entry.Key.Equals(dameDePique)) {
+                    perdant.Pointage += 12;
+                    pointage += 12;
+                } else if (entry.Key.Color == Couleur.Coeur) {
+                    perdant.Pointage += 1;
+                    pointage += 1;
+                }
+            }
+
+            RegleLePos(perdant);
+            this.ListeCartesEnJeu.Clear();
+
+            info.Add(perdant, pointage);
+            return info;
         }
 
         private Joueur getJoueur(Joueur player) {
@@ -174,7 +225,7 @@ namespace ClassLibrary
             // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
             if (cartesValide.Count != 0)  {
                 carte = cartesValide[0];
-                ListeCartesEnJeu.Add(carte);
+                ListeCartesEnJeu.Add(carte, joueur);
                 joueur.Paquet.Remove(carte);
                 return carte;
             }
@@ -200,10 +251,6 @@ namespace ClassLibrary
             // Jouer n'a plus de carte / Jeu terminé 
             return null;
             
-        }
-
-        public void verification() {
-            // Utilise la liste ListeCartesEnJeu
         }
 
     }

@@ -31,6 +31,11 @@ namespace ClassLibrary
             get; set;
         }
 
+        // Pointage
+        public int Pointage {
+            get; set;
+        }
+
         public Joueur(string nom, string image) {
             this.Nom = nom;
             this.Image = image;

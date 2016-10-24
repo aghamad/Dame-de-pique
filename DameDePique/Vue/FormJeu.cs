@@ -52,10 +52,11 @@ namespace DameDePique
             InitializeMesCartes();
             InitializeDeckField();
             UpdateSuit();
+            DisableWithSuit();
             // AI Play 
-            Play();
         }
-        
+
+
         // Only called once / In order to Update the Panel / Create an Update method
         private void InitializeMesCartes() {
             this.mesCartes = new Dictionary<PictureBox, Carte>();
@@ -149,7 +150,7 @@ namespace DameDePique
 
             // Il a des Cartes de se Suit
             if (cartesValide.Count > 0 && carte.Color.Equals(suit)) {
-                this.jeu.ListeCartesEnJeu.Add(carte);
+                this.jeu.ListeCartesEnJeu.Add(carte, jeu.Player); // HERE Added
                 return true;
             }
             else if (cartesValide.Count == 0) {
@@ -158,6 +159,7 @@ namespace DameDePique
                 //reput la carte de cette suit
                 this.jeu.Player.Couleurs.Remove(index); // Il n'a plus de cette Couleur 
                 this.suit = carte.Color;
+                DisableWithSuit();
                 return PutCarte(carte);
             }
             else if (!carte.Color.Equals(suit)){
@@ -172,35 +174,54 @@ namespace DameDePique
             // Au commencement et quand un joueur perd 
             // Sorted by positonnement, alors le premier commence 
             this.jeu.OrderListAvecPos();
+            // while loop too until someone doesn't have cartes
             foreach (Joueur joueur in jeu.ListeDesJoueurs) {
                 // Joueur non Ordi 
+                //MessageBox.Show(joueur.Nom + " : " + joueur.Positionnement);
                 if (joueur.Nom.Equals(jeu.Player.Nom)) {
-                    //await panelDisplay.Controls.WhenClicked();
-                    // allowed to put cards
-                    // check if first and higlight trefle de deux MessageBox.Show("Shit im first leave and don't forget to hightligth card");
+                    // Les PictureBoxes qui reste
+                    List<PictureBox> restant = new List<PictureBox>();
+                    foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
+                        restant.Add(entry.Key);
+                    }
+                    await panelDisplay.WhenClicked(restant.Count); // index de PictureBox [0] - [12]
                 }
                 else  {
-                    // Ordinateur
-                    
+                    // Ordinateur                   
                     Carte carte = jeu.putCarte(joueur);
-                    //MessageBox.Show(carte.Color + " " + carte.Value);
                     if (carte == null) {
                         MessageBox.Show("Fin");
                     } else {
                         // Get et set sa carte dans le picturebox
                         mesPictureBoxes[joueur].Image = Image.FromFile(pathCarteImages + carte.Image);
-                        this.jeu.ListeCartesEnJeu.Add(carte);
                         joueur.Paquet.Remove(carte);
                         UpdateSuit(); // A chaque fois afin de verifier si le suit a change 
-                        Thread.Sleep(1);
+                        DisableWithSuit();
                     }
                 }
             }
+
+            // After the loop / Quand tout les Joueurs ont choisit
+            Dictionary<Joueur, int> infoSurLePerdant = jeu.Verification();
+            Joueur perdant = null;
+            int pointage = 0;
+            foreach (KeyValuePair<Joueur, int> entry in infoSurLePerdant) {
+                perdant = entry.Key;
+                pointage = entry.Value;
+            }
+
+            MessageBox.Show("Le Perdant " + perdant.Nom + " a ramasser " + pointage + " point(s)");
+
+        }
+
+        // First 
+        private void FormJeu_Shown(object sender, EventArgs e) {
+            Play();
         }
 
         // dans la methode verification order by perdant dans jeu.cs 
 
-        
+
 
     }
 }
