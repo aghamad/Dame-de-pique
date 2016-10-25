@@ -106,18 +106,20 @@ namespace ClassLibrary
             // Initialize la liste pour mettre les Cartes en jeu (4 cartes en total) 
             this.ListeCartesEnJeu = new Dictionary<Carte, Joueur>();
 
-            // Couleur trefle qui commence
+            // Couleur trefle qui commence / Essayer de tester tout les Couleurs ici surtout la Couleur Coueur (car elle valent des points)
             this.Suit = Couleur.Trefle;
             // Distribuer
             distribuer();
             // Position
             AssignerUnePosition();
+            // Fin
+            this.Fin = false;
         }
 
-        public Dictionary<Joueur, int> Verification() {
+        public Dictionary<Joueur, Carte> Verification() {
 
             // Le Dict qui sera send back to FormJeu
-            Dictionary<Joueur, int> info = new Dictionary<Joueur, int>();
+            Dictionary<Joueur, Carte> info = new Dictionary<Joueur, Carte>();
 
             //  Il suffit d'essayer de ne pas ramasser de cartes de coeurs ou la dame de pique.
             //  Une carte de type coeurs = 1 point et la dame de pique = 12 points. 
@@ -136,7 +138,6 @@ namespace ClassLibrary
                 }
             }
 
-            int pointage = 0;
             // Ceci est le perdant 
             // Adjust l'info du Joueur perdant
             Joueur perdant = ListeCartesEnJeu[highest];
@@ -145,17 +146,15 @@ namespace ClassLibrary
             foreach (KeyValuePair<Carte, Joueur> entry in ListeCartesEnJeu) {
                 if (entry.Key.Equals(dameDePique)) {
                     perdant.Pointage += 12;
-                    pointage += 12;
                 } else if (entry.Key.Color == Couleur.Coeur) {
                     perdant.Pointage += 1;
-                    pointage += 1;
                 }
             }
 
             RegleLePos(perdant);
             this.ListeCartesEnJeu.Clear();
 
-            info.Add(perdant, pointage);
+            info.Add(perdant, highest);
             return info;
         }
 
@@ -208,9 +207,13 @@ namespace ClassLibrary
             ListeDesJoueurs.Sort();
         }
 
-        // Methode Ordinateur
-        // A tour de role Thread.sleep pour les Ordinateurs
-        // Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue de la partie 
+        /// <summary>
+        /// Methode Ordinateur
+        /// A tour de role Thread.sleep pour les Ordinateurs
+        /// Jusqu'a qu'il trouve une Carte random qui correspont a la Coleur/Suit joue de la partie 
+        /// </summary>
+        /// <param name="joueur"> Le Joueur Ordinateur </param>
+        /// <returns></returns>
         public Carte putCarte(Joueur joueur) {
             Carte carte = null;
             List<Carte> paquetDuJoueur = joueur.Paquet;
@@ -221,7 +224,6 @@ namespace ClassLibrary
                     cartesValide.Add(card);
                 }
             }
-            //Console.WriteLine(cartesValide[0].Value + " Ass");
             // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
             if (cartesValide.Count != 0)  {
                 carte = cartesValide[0];
@@ -247,7 +249,6 @@ namespace ClassLibrary
                 putCarte(joueur);
             }
 
-   
             // Jouer n'a plus de carte / Jeu terminé 
             return null;
             

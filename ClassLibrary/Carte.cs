@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    public enum Couleur {Pique, Coeur, Carreau, Trefle};
+    public enum Couleur {Pique = 0, Coeur = 1, Carreau = 2, Trefle = 3};
     public enum Valeur { As = 1, Deux = 2, Trois = 3, Quatre = 4, Cinq = 5, Six = 6, Sept = 7, Huit = 8, Neuf = 9, Dix = 10, Valet = 11, Dame = 12, Roi = 13}
 
     public class Carte: IEquatable<Carte>

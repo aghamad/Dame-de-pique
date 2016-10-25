@@ -12,15 +12,11 @@ namespace DameDePique
     {
         private Jeu jeu;
         private string pathCarteImages;
-        // Suit/ Couleur du Jeu
-        private Couleur suit;
-
         // Les Cartes du Joueur
         private Dictionary<PictureBox, Carte> mesCartes;
-
         // Les Quatres PictureBoxes qui seront en jeu 
         private PictureBox[] pictureBoxes;
-        // Les PictureBoxes des Joueurs Ordinateurs 
+        // Les PictureBoxes des Joueurs Ordinateurs et le joueur non-ordi 
         private Dictionary<Joueur, PictureBox> mesPictureBoxes;
 
         public FormJeu(Joueur joueur) {
@@ -33,12 +29,12 @@ namespace DameDePique
             this.pathCarteImages = Application.StartupPath + @"\CarteImages\";
 
             // Ouvre form de style ou l'usager choisit son bonhomme et ecrit son nom (a faire)
-            Joueur player = new Joueur("Bledard", "image.png");
+            Joueur player = new Joueur("Moi", "image.png");
 
             // Commencement du jeu / Intialize le Jeu avec le Joueur 
             this.jeu = new Jeu(player);
 
-            // Pour le Jeu les 4 Cartes Joue
+            // Pour le Jeu les 4 Cartes qui seront en Jeu 
             this.pictureBoxes = new PictureBox[] { pictureBoxMyCarte, pictureBox2, pictureBox3, pictureBox4}; 
 
             // Assignation 
@@ -50,12 +46,7 @@ namespace DameDePique
 
             // Les Cartes du Joueur 
             InitializeMesCartes();
-            InitializeDeckField();
-            UpdateSuit();
-            DisableWithSuit();
-            // AI Play 
         }
-
 
         // Only called once / In order to Update the Panel / Create an Update method
         private void InitializeMesCartes() {
@@ -68,13 +59,15 @@ namespace DameDePique
                     // BorderStyle = BorderStyle.FixedSingle,
                     SizeMode = PictureBoxSizeMode.AutoSize
                 };
-
-                // Other Settings
+                // Image de la Carte
                 pictureBox.Image = Image.FromFile(pathCarteImages + jeu.Player.Paquet[i].Image);
+                // Click Event 
                 pictureBox.Click += new System.EventHandler(Carte_Click);
-
                 mesCartes.Add(pictureBox, jeu.Player.Paquet[i]);
             }
+
+            // Init les Cartes dans la table
+            InitializeDeckField();
         }
 
         private void InitializeDeckField() {
@@ -95,128 +88,135 @@ namespace DameDePique
             return carte;
         }
 
-
+        // He can click on any Carte 
         private void Carte_Click(object sender, EventArgs e) {
             PictureBox pictureBox = (PictureBox) sender;
-
             if (panelDisplay.Controls.Contains(pictureBox)) {
+                // Get la carte 
                 Carte carte = GetCarteWithPicBox(pictureBox);
-                // Put la Carte pour verification / Doit etre de la meme Suit joue 
-                if (PutCarte(carte)) {
-                    // Add Image to pictureBoxMyCarte
-                    pictureBoxMyCarte.Image = Image.FromFile(pathCarteImages + carte.Image);
-                    // Remove in Runtime
+                if (PutMyCarte(carte)) {
+                    mesPictureBoxes[jeu.Player].Image = Image.FromFile(pathCarteImages + carte.Image);
+                    // Remove from Runtime
                     pictureBox.Click -= new System.EventHandler(this.Carte_Click);
                     panelDisplay.Controls.Remove(pictureBox);
                     pictureBox.Dispose();
                     // Remove from Dictionnary mesCartes
                     mesCartes.Remove(pictureBox);
                     jeu.Player.Paquet.Remove(carte);
-                    
+                }
+                else {
+                    // Cancel the event 
+                    MessageBox.Show("La Carte choisit n'est pas de la Couleur: " + jeu.Suit, "Warning");
+                    return; 
                 }
             }
-        }
-
-        public void UpdateSuit() {
-            this.suit = jeu.Suit;
         }
 
         /// <summary>
-        /// Disables les PictureBoxes/Cartes qui ne peuvent pas etre joue Function not used
+        /// Methode User afin de mettre une Carte en jeu
         /// </summary>
-        private void DisableWithSuit() {
-            // Disable Avec le Suit
-            foreach (KeyValuePair < PictureBox, Carte > entry in mesCartes) {
-                Carte carte = entry.Value;
-                if (!carte.Color.Equals(suit)) {
-                    // Disable them
-                    entry.Key.Enabled = false;
-                    // pictureBox.Image = Image.FromFile(pathCarteImages + "0.png");
-                }
+        /// <param name="carte"></param>
+        /// <returns></returns>
+        private bool PutMyCarte(Carte carte) {
+            if (carte.Color.Equals(jeu.Suit)) {
+                this.jeu.ListeCartesEnJeu.Add(carte, jeu.Player);
+                buttonGo.Enabled = true; // Avec Plaisir 
+                return true;
             }
-        }
 
-
-        private bool PutCarte(Carte carte) {
-            // Cartes that do not correspond with suit are already disabled 
+            // Avant de mettre une Carte d'une autre Couleur
+            // Il faut regarder si l'usager n'a plus de cette Couleur 
             List<Carte> cartesValide = new List<Carte>();
-
             // Met les cartes qui peuvent etre joue dans une Liste [cartesValide]
             foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
-                if (entry.Value.Color.Equals(suit)) {
+                if (entry.Value.Color.Equals(jeu.Suit)) {
                     cartesValide.Add(entry.Value);
                 }
             }
 
-            // Il a des Cartes de se Suit
-            if (cartesValide.Count > 0 && carte.Color.Equals(suit)) {
-                this.jeu.ListeCartesEnJeu.Add(carte, jeu.Player); // HERE Added
-                return true;
-            }
-            else if (cartesValide.Count == 0) {
-                // Ca veut dire qu'il faut changer de Suit, il n'a pas plus de carte de cette suit 
-                int index = (int) suit;
-                //reput la carte de cette suit
-                this.jeu.Player.Couleurs.Remove(index); // Il n'a plus de cette Couleur 
-                this.suit = carte.Color;
-                DisableWithSuit();
-                return PutCarte(carte);
-            }
-            else if (!carte.Color.Equals(suit)){
-                MessageBox.Show("La carte choisie doit etre de la Couleur " + suit.ToString());
-                return false;
+            // if is empty / Essaye de changer la couleur 
+            if (!carte.Color.Equals(jeu.Suit) && cartesValide.Count == 0) {
+                jeu.Suit = carte.Color;
+                return PutMyCarte(carte);
             }
             return false;
         }
 
-        // Engine Each Round
+        // Update Form
+        private void UpdateTable() {
+            // Update Positionnement dans le form 
+            labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement;
+            labelName2.Text = "Nom : " + jeu.PlayerA.Nom + "\nPosition:  " + jeu.PlayerA.Positionnement;
+            labelName3.Text = "Nom : " + jeu.PlayerN.Nom + "\nPosition:  " + jeu.PlayerN.Positionnement;
+            labelName4.Text = "Nom : " + jeu.PlayerH.Nom + "\nPosition:  " + jeu.PlayerH.Positionnement;
+        }
+
+        private void Start() {
+            while (!jeu.Fin) {
+                Play();
+            }
+        }
+
+        // Simulation d'un Round
         private async void Play() {
-            // Au commencement et quand un joueur perd 
-            // Sorted by positonnement, alors le premier commence 
             this.jeu.OrderListAvecPos();
-            // while loop too until someone doesn't have cartes
+            buttonGo.Enabled = false;
+            // Montre et update le positionnement de chaque joueur dans le label approprié
+            UpdateTable();
+
             foreach (Joueur joueur in jeu.ListeDesJoueurs) {
-                // Joueur non Ordi 
-                //MessageBox.Show(joueur.Nom + " : " + joueur.Positionnement);
-                if (joueur.Nom.Equals(jeu.Player.Nom)) {
-                    // Les PictureBoxes qui reste
+                // if c'est le tour du Joueur non-ordi 
+                if (joueur.Equals(jeu.Player)) {
+                    // Afin de get le nb de PictureBoxes restant
                     List<PictureBox> restant = new List<PictureBox>();
                     foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
                         restant.Add(entry.Key);
                     }
-                    await panelDisplay.WhenClicked(restant.Count); // index de PictureBox [0] - [12]
+                    await buttonGo.WhenClicked();
                 }
-                else  {
-                    // Ordinateur                   
+                else {
+                    // Les ordinateurs
                     Carte carte = jeu.putCarte(joueur);
                     if (carte == null) {
-                        MessageBox.Show("Fin");
-                    } else {
-                        // Get et set sa carte dans le picturebox
+                        MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte. Cela marque la fin du jeu.", "The end");
+                        this.jeu.Fin = true;
+                    }
+                    else {
+                        // Cette line de code est dans la methode putCarte(joueur) : jeu.ListeCartesEnJeu.Add(carte, joueur);
+                        // Set dans son pictureBox
                         mesPictureBoxes[joueur].Image = Image.FromFile(pathCarteImages + carte.Image);
+                        // Il n'a plus de cette carte
                         joueur.Paquet.Remove(carte);
-                        UpdateSuit(); // A chaque fois afin de verifier si le suit a change 
-                        DisableWithSuit();
                     }
                 }
             }
 
-            // After the loop / Quand tout les Joueurs ont choisit
-            Dictionary<Joueur, int> infoSurLePerdant = jeu.Verification();
+            // After the loop / Quand tout les Joueurs ont choisit / Cela determine le perdant: verification()
+            Dictionary<Joueur, Carte> infoSurLePerdant = jeu.Verification();
             Joueur perdant = null;
-            int pointage = 0;
-            foreach (KeyValuePair<Joueur, int> entry in infoSurLePerdant) {
+            Carte cartePerdant = null;
+            foreach (KeyValuePair<Joueur, Carte> entry in infoSurLePerdant) {
                 perdant = entry.Key;
-                pointage = entry.Value;
+                cartePerdant = entry.Value;
             }
 
-            MessageBox.Show("Le Perdant " + perdant.Nom + " a ramasser " + pointage + " point(s)");
+            MessageBox.Show("Le Perdant " + perdant.Nom
+                + " a ramasser la carte : " + cartePerdant.Color + " " + cartePerdant.Value 
+                + " point(s) et cela lui donc fait un totale de " + perdant.Pointage + " point(s)", "Perdant du round");
+
+            for (int i = 0; i < pictureBoxes.Length; i++) {
+                pictureBoxes[i].Image = null;
+            }
 
         }
 
+
         // First 
         private void FormJeu_Shown(object sender, EventArgs e) {
+            // Play qu'un seul round
             Play();
+            // Play la game jusqu'a la fin
+            // Start();
         }
 
         // dans la methode verification order by perdant dans jeu.cs 

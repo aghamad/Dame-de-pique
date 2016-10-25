@@ -33,6 +33,11 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panelDisplay = new System.Windows.Forms.Panel();
+            this.labelName1 = new System.Windows.Forms.Label();
+            this.labelName2 = new System.Windows.Forms.Label();
+            this.labelName3 = new System.Windows.Forms.Label();
+            this.labelName4 = new System.Windows.Forms.Label();
+            this.buttonGo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMyCarte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -86,6 +91,51 @@
             this.panelDisplay.Size = new System.Drawing.Size(1031, 98);
             this.panelDisplay.TabIndex = 12;
             // 
+            // labelName1
+            // 
+            this.labelName1.AutoSize = true;
+            this.labelName1.Location = new System.Drawing.Point(491, 445);
+            this.labelName1.Name = "labelName1";
+            this.labelName1.Size = new System.Drawing.Size(40, 13);
+            this.labelName1.TabIndex = 13;
+            this.labelName1.Text = "-----------";
+            // 
+            // labelName2
+            // 
+            this.labelName2.AutoSize = true;
+            this.labelName2.Location = new System.Drawing.Point(412, 250);
+            this.labelName2.Name = "labelName2";
+            this.labelName2.Size = new System.Drawing.Size(40, 13);
+            this.labelName2.TabIndex = 14;
+            this.labelName2.Text = "-----------";
+            // 
+            // labelName3
+            // 
+            this.labelName3.AutoSize = true;
+            this.labelName3.Location = new System.Drawing.Point(491, 194);
+            this.labelName3.Name = "labelName3";
+            this.labelName3.Size = new System.Drawing.Size(40, 13);
+            this.labelName3.TabIndex = 15;
+            this.labelName3.Text = "-----------";
+            // 
+            // labelName4
+            // 
+            this.labelName4.AutoSize = true;
+            this.labelName4.Location = new System.Drawing.Point(570, 250);
+            this.labelName4.Name = "labelName4";
+            this.labelName4.Size = new System.Drawing.Size(40, 13);
+            this.labelName4.TabIndex = 16;
+            this.labelName4.Text = "-----------";
+            // 
+            // buttonGo
+            // 
+            this.buttonGo.Location = new System.Drawing.Point(494, 507);
+            this.buttonGo.Name = "buttonGo";
+            this.buttonGo.Size = new System.Drawing.Size(73, 23);
+            this.buttonGo.TabIndex = 17;
+            this.buttonGo.Text = "Go!";
+            this.buttonGo.UseVisualStyleBackColor = true;
+            // 
             // FormJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +143,11 @@
             this.BackgroundImage = global::DameDePique.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1075, 709);
+            this.Controls.Add(this.buttonGo);
+            this.Controls.Add(this.labelName4);
+            this.Controls.Add(this.labelName3);
+            this.Controls.Add(this.labelName2);
+            this.Controls.Add(this.labelName1);
             this.Controls.Add(this.panelDisplay);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
@@ -107,6 +162,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -116,6 +172,11 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel panelDisplay;
+        private System.Windows.Forms.Label labelName1;
+        private System.Windows.Forms.Label labelName2;
+        private System.Windows.Forms.Label labelName3;
+        private System.Windows.Forms.Label labelName4;
+        private System.Windows.Forms.Button buttonGo;
     }
 }
 

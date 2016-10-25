@@ -7,24 +7,15 @@ using System.Windows.Forms;
 
 namespace ClassLibrary
 {
-    public static class Utils
-    {
-        public static Task WhenClicked(this Control target, int index)
-        {
+    public static class Utils {
+        public static Task WhenClicked(this Control target) {
             var tcs = new TaskCompletionSource<object>();
             EventHandler onClick = null;
-            onClick = (sender, e) =>
-            {
-                for (int i = 0; i < index - 1; i++)
-                {
-                    target.Controls[i].Click -= onClick;
-                }
+            onClick = (sender, e) => {
+                target.Click -= onClick;
                 tcs.TrySetResult(null);
             };
-            for (int i = 0; i < index - 1; i++)
-            {
-                target.Controls[i].Click += onClick;
-            }
+            target.Click += onClick;
             return tcs.Task;
         }
     }
