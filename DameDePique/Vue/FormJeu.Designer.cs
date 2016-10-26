@@ -38,10 +38,14 @@
             this.labelName3 = new System.Windows.Forms.Label();
             this.labelName4 = new System.Windows.Forms.Label();
             this.buttonGo = new System.Windows.Forms.Button();
+            this.panelStatus = new System.Windows.Forms.Panel();
+            this.labelRound = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMyCarte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.panelStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxMyCarte
@@ -66,7 +70,7 @@
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Green;
-            this.pictureBox3.Location = new System.Drawing.Point(573, 286);
+            this.pictureBox3.Location = new System.Drawing.Point(494, 221);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(73, 97);
             this.pictureBox3.TabIndex = 10;
@@ -76,7 +80,7 @@
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Green;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Location = new System.Drawing.Point(494, 224);
+            this.pictureBox4.Location = new System.Drawing.Point(573, 286);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(73, 97);
             this.pictureBox4.TabIndex = 11;
@@ -136,6 +140,37 @@
             this.buttonGo.Text = "Go!";
             this.buttonGo.UseVisualStyleBackColor = true;
             // 
+            // panelStatus
+            // 
+            this.panelStatus.BackColor = System.Drawing.Color.Green;
+            this.panelStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelStatus.Controls.Add(this.labelStatus);
+            this.panelStatus.Controls.Add(this.labelRound);
+            this.panelStatus.Location = new System.Drawing.Point(21, 12);
+            this.panelStatus.Name = "panelStatus";
+            this.panelStatus.Size = new System.Drawing.Size(308, 115);
+            this.panelStatus.TabIndex = 18;
+            // 
+            // labelRound
+            // 
+            this.labelRound.AutoSize = true;
+            this.labelRound.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelRound.Location = new System.Drawing.Point(4, 4);
+            this.labelRound.Name = "labelRound";
+            this.labelRound.Size = new System.Drawing.Size(49, 13);
+            this.labelRound.TabIndex = 0;
+            this.labelRound.Text = "Round #";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelStatus.Location = new System.Drawing.Point(4, 28);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(46, 13);
+            this.labelStatus.TabIndex = 1;
+            this.labelStatus.Text = "-------------";
+            // 
             // FormJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +178,7 @@
             this.BackgroundImage = global::DameDePique.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1075, 709);
+            this.Controls.Add(this.panelStatus);
             this.Controls.Add(this.buttonGo);
             this.Controls.Add(this.labelName4);
             this.Controls.Add(this.labelName3);
@@ -161,6 +197,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.panelStatus.ResumeLayout(false);
+            this.panelStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +215,9 @@
         private System.Windows.Forms.Label labelName3;
         private System.Windows.Forms.Label labelName4;
         private System.Windows.Forms.Button buttonGo;
+        private System.Windows.Forms.Panel panelStatus;
+        private System.Windows.Forms.Label labelRound;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Drawing.Imaging;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DameDePique
 {
@@ -18,6 +19,8 @@ namespace DameDePique
         private PictureBox[] pictureBoxes;
         // Les PictureBoxes des Joueurs Ordinateurs et le joueur non-ordi 
         private Dictionary<Joueur, PictureBox> mesPictureBoxes;
+        //Round
+        private int round = 0;
 
         public FormJeu(Joueur joueur) {
             InitializeComponent();
@@ -39,6 +42,8 @@ namespace DameDePique
 
             // Assignation 
             this.mesPictureBoxes = new Dictionary<Joueur, PictureBox>();
+            
+            // La liste des joueurs en ordre: Moi (en bas), Ahmad (gauche), Nassim (haut), Halim (droite)
             for (int i = 0; i < jeu.ListeDesJoueurs.Count; i++) {
                 // Player , pictureBoxMyCarte 
                 mesPictureBoxes.Add(jeu.ListeDesJoueurs[i], pictureBoxes[i]);
@@ -146,9 +151,9 @@ namespace DameDePique
         private void UpdateTable() {
             // Update Positionnement dans le form 
             labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement;
-            labelName2.Text = "Nom : " + jeu.PlayerA.Nom + "\nPosition:  " + jeu.PlayerA.Positionnement;
-            labelName3.Text = "Nom : " + jeu.PlayerN.Nom + "\nPosition:  " + jeu.PlayerN.Positionnement;
-            labelName4.Text = "Nom : " + jeu.PlayerH.Nom + "\nPosition:  " + jeu.PlayerH.Positionnement;
+            labelName2.Text = "Nom : " + jeu.PlayerAhmad.Nom + "\nPosition:  " + jeu.PlayerAhmad.Positionnement;
+            labelName3.Text = "Nom : " + jeu.PlayerNassim.Nom + "\nPosition:  " + jeu.PlayerNassim.Positionnement;
+            labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement;
         }
 
         private void Start() {
@@ -163,6 +168,9 @@ namespace DameDePique
             buttonGo.Enabled = false;
             // Montre et update le positionnement de chaque joueur dans le label approprié
             UpdateTable();
+            // Nouveau Round
+            this.round++;
+            labelRound.Text = "Round #" + round;
 
             foreach (Joueur joueur in jeu.ListeDesJoueurs) {
                 // if c'est le tour du Joueur non-ordi 
@@ -200,14 +208,14 @@ namespace DameDePique
                 cartePerdant = entry.Value;
             }
 
-            MessageBox.Show("Le Perdant " + perdant.Nom
-                + " a ramasser la carte : " + cartePerdant.Color + " " + cartePerdant.Value 
-                + " point(s) et cela lui donc fait un totale de " + perdant.Pointage + " point(s)", "Perdant du round");
+            labelStatus.Text = String.Format("{0} a perdu ce tour \nCe joueur a ramasser la carte la plus haute la {1} de {2} \nCela lui donc fait un totale de {3} point(s)", perdant.Nom, cartePerdant.Value, cartePerdant.Color, perdant.Pointage);
+            buttonGo.Enabled = false;
 
+            // Attend avant d'enlever les images 
+            await Task.Delay(12500);
             for (int i = 0; i < pictureBoxes.Length; i++) {
                 pictureBoxes[i].Image = null;
             }
-
         }
 
 
@@ -218,10 +226,5 @@ namespace DameDePique
             // Play la game jusqu'a la fin
             // Start();
         }
-
-        // dans la methode verification order by perdant dans jeu.cs 
-
-
-
     }
 }

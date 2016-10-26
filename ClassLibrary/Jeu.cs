@@ -23,50 +23,31 @@ namespace ClassLibrary
             get; set;
         }
 
-        // ------ Vous
+        // ------ Vous / Afin de le Get dans le formjeu 
+        public Joueur JoueurNonOrdinateur {
+            get; set;
+        }
+
+        // Peu n'importe sa position dans la liste toujours le retourne / Cette liste sera ordered souvent par positionnement 
         public Joueur Player
         {
-            get { return getJoueur(PlayerStatic); }
+            get { return getJoueur(JoueurNonOrdinateur); }
         }
 
-        // Ordinateur
-        public Joueur PlayerA
+        // Les Joueurs ordinateurs 
+        public Joueur PlayerAhmad
         {
-            get { return getJoueur(PlayerAStatic); }
+            get { return getJoueur("Ahmad"); }
         }
 
-        // Ordinateur
-        public Joueur PlayerN
+        public Joueur PlayerNassim
         {
-            get { return getJoueur(PlayerNStatic); }
+            get { return getJoueur("Nassim"); }
         }
 
-        // Ordinateur
-        public Joueur PlayerH {
-            get { return getJoueur(PlayerHStatic); }
-        }
-
-        // ----- Vous / STATIC: Ne Quitte pas la liste 
-        public Joueur PlayerStatic
+        public Joueur PlayerHalim
         {
-            get; set;
-        }
-
-        // Ordinateur
-        public Joueur PlayerAStatic {
-            get; set;
-        }
-
-        // Ordinateur
-        public Joueur PlayerNStatic
-        {
-            get; set;
-        }
-
-        // Ordinateur
-        public Joueur PlayerHStatic
-        {
-            get; set;
+            get { return getJoueur("Halim"); }
         }
 
         // ----- DECK DU JEU 
@@ -88,17 +69,17 @@ namespace ClassLibrary
 
         // L'usager choisit d'abord son nom et son image et apres le jeu commence
         public Jeu(Joueur player) {
-            this.PlayerStatic = player;
-            this.PlayerAStatic = new Joueur("Ahmad", "player-A.png");
-            this.PlayerNStatic = new Joueur("Nassim", "player-N.png");
-            this.PlayerHStatic = new Joueur("Halim", "player-H.png");
+            this.JoueurNonOrdinateur = player;
+            Joueur playerAhmad = new Joueur("Ahmad", "player-A.png");
+            Joueur playerNassim = new Joueur("Nassim", "player-N.png");
+            Joueur playerHalim = new Joueur("Halim", "player-H.png");
 
-            // AJOUT dans la liste de joueurs 
+            // AJOUT dans la liste de joueurs Note: Cette liste va etre order by positionnement souvent 
             ListeDesJoueurs = new ListJoueurs();
-            ListeDesJoueurs.Add(PlayerStatic);
-            ListeDesJoueurs.Add(PlayerAStatic);
-            ListeDesJoueurs.Add(PlayerNStatic);
-            ListeDesJoueurs.Add(PlayerHStatic);
+            ListeDesJoueurs.Add(player);
+            ListeDesJoueurs.Add(playerAhmad);
+            ListeDesJoueurs.Add(playerNassim);
+            ListeDesJoueurs.Add(playerHalim);
 
             // Initialize le Deck 
             this.Deck = new Paquet(); // Creation des Carte(s) 
@@ -110,7 +91,7 @@ namespace ClassLibrary
             this.Suit = Couleur.Trefle;
             // Distribuer
             distribuer();
-            // Position
+            // Position au premier lancement 
             AssignerUnePosition();
             // Fin
             this.Fin = false;
@@ -158,9 +139,20 @@ namespace ClassLibrary
             return info;
         }
 
+        // Pour get le joueur, nom ici est dynamique alors c'est pour ca on ne get pas avec le nom 
         private Joueur getJoueur(Joueur player) {
             foreach (Joueur joueur in ListeDesJoueurs) {
                 if (joueur.Equals(player)) {
+                    return joueur;
+                }
+            }
+            return null;
+        }
+
+        // Pour get les ordi dasn cette unordered list 
+        private Joueur getJoueur(string name)  {
+            foreach (Joueur joueur in ListeDesJoueurs){
+                if (joueur.Nom.Equals(name)) {
                     return joueur;
                 }
             }
@@ -180,7 +172,6 @@ namespace ClassLibrary
         public void AssignerUnePosition() {
             // Celui qui a la Carte (Deux de Trefle) commence le jeu 
             Carte carte = new Carte(Couleur.Trefle, Valeur.Deux);
-
             foreach (Joueur joueur in ListeDesJoueurs) {
                 if (joueur.Paquet.Contains(carte)) {
                     ListeDesJoueurs.Premier = joueur;
@@ -225,20 +216,17 @@ namespace ClassLibrary
                 }
             }
             // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
-            if (cartesValide.Count != 0)  {
-                carte = cartesValide[0];
+            if (cartesValide.Count != 0)
+            {
+                carte = cartesValide[random.Next(cartesValide.Count)]; // Incluant 0 
                 ListeCartesEnJeu.Add(carte, joueur);
                 joueur.Paquet.Remove(carte);
-                return carte;
-            }
-            else {
+            } else if (paquetDuJoueur.Count != 0)
+            {
+                // Il n'a plus de Cette couleur mais que son paquet n'est pas encore vide
                 // Get l'index de la Couleur
                 int index = (int) Suit;
-                List<int> couleursRestant = joueur.Couleurs;
-                if (couleursRestant.Count == 0) {
-                    // Jouer n'a plus de carte / Jeu terminé 
-                    return null;
-                }
+                List<int> couleursRestant = joueur.Couleurs; // en int 
                 // Apres enleve l'index de la couleur dans joueur 
                 couleursRestant.Remove(index);
                 // L'ordinateur joue une autre Couleur/Suit random et ne prend pas en consideration la couleur qu'il ne possede pas 
@@ -249,8 +237,10 @@ namespace ClassLibrary
                 putCarte(joueur);
             }
 
+            // else si cette methode return carte null ca veut dire que l'usager n'a plus de carte 0 dans son paquet
             // Jouer n'a plus de carte / Jeu terminé 
-            return null;
+            // this.Fin = false if carte is null
+            return carte;
             
         }
 

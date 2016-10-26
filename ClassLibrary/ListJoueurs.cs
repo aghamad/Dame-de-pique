@@ -28,7 +28,7 @@ namespace ClassLibrary
         /// Cette méthode boucle dans la liste des joueurs et assigne à chaque joueur une position
         /// </summary>
         public void MoveAndAssigne() {
-            int pos = getIndexDuPremier();
+            int pos = getIndexDuPremier(); // 
             int position = 0;
             int positionRestart = 0;
             for (int i = pos; i < this.Count + pos; i++) {
