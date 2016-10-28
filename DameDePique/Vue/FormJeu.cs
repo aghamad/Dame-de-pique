@@ -100,6 +100,7 @@ namespace DameDePique
                 // Get la carte 
                 Carte carte = GetCarteWithPicBox(pictureBox);
                 if (PutMyCarte(carte)) {
+                    DisablePictureBoxes();
                     mesPictureBoxes[jeu.Player].Image = Image.FromFile(pathCarteImages + carte.Image);
                     // Remove from Runtime
                     pictureBox.Click -= new System.EventHandler(this.Carte_Click);
@@ -119,19 +120,20 @@ namespace DameDePique
         }
 
         /// <summary>
-        /// Disable ou Enable les pictureboxes du joueur Apres son choix 
+        /// Enable les pictureboxes du joueur
         /// </summary>
-        private void TogglePictureBoxesDeck(bool disabled) {
-            if (disabled) {
-                foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes)  {
-                    entry.Key.Enabled = true;
-                }
+        private void EnablePictureBoxes()  {
+            foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
+                entry.Key.Enabled = true;
             }
-            else {
-                foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
-                    // Ou sinon Disable 
-                    entry.Key.Enabled = false;
-                }
+        }
+
+        /// <summary>
+        /// Disable les pictureboxes du joueur
+        /// </summary>
+        private void DisablePictureBoxes() {
+            foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
+                entry.Key.Enabled = false;
             }
         }
 
@@ -168,10 +170,10 @@ namespace DameDePique
         // Update Form
         private void UpdateTable() {
             // Update Positionnement dans le form 
-            labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement;
-            labelName2.Text = "Nom : " + jeu.PlayerAhmad.Nom + "\nPosition:  " + jeu.PlayerAhmad.Positionnement;
-            labelName3.Text = "Nom : " + jeu.PlayerNassim.Nom + "\nPosition:  " + jeu.PlayerNassim.Positionnement;
-            labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement;
+            labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement + "\nPoints:" + jeu.Player.Pointage;
+            labelName2.Text = "Nom : " + jeu.PlayerAhmad.Nom + "\nPosition:  " + jeu.PlayerAhmad.Positionnement + "\nPoints:" + jeu.PlayerAhmad.Pointage;
+            labelName3.Text = "Nom : " + jeu.PlayerNassim.Nom + "\nPosition:  " + jeu.PlayerNassim.Positionnement + "\nPoints:" + jeu.PlayerNassim.Pointage;
+            labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement + "\nPoints:" + jeu.PlayerHalim.Pointage;
         }
 
         private async void Start() {
@@ -194,7 +196,7 @@ namespace DameDePique
                 // if c'est le tour du Joueur non-ordi 
                 if (joueur.Equals(jeu.Player)) {
                     // Enable if player's turn 
-                    TogglePictureBoxesDeck(true); // Enable PictureBoxes
+                    EnablePictureBoxes();
                     // Afin de get le nb de PictureBoxes restant
                     List<PictureBox> restant = new List<PictureBox>();
                     foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
@@ -233,7 +235,7 @@ namespace DameDePique
             buttonGo.Enabled = false;
 
             // Attend avant d'enlever les images 
-            await Task.Delay(1080);
+            await Task.Delay(1800);
             for (int i = 0; i < pictureBoxes.Length; i++) {
                 pictureBoxes[i].Image = null;
             }

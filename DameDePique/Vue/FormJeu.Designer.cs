@@ -39,8 +39,8 @@
             this.labelName4 = new System.Windows.Forms.Label();
             this.buttonGo = new System.Windows.Forms.Button();
             this.panelStatus = new System.Windows.Forms.Panel();
-            this.labelRound = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.labelRound = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMyCarte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -107,7 +107,7 @@
             // labelName2
             // 
             this.labelName2.AutoSize = true;
-            this.labelName2.Location = new System.Drawing.Point(412, 250);
+            this.labelName2.Location = new System.Drawing.Point(412, 240);
             this.labelName2.Name = "labelName2";
             this.labelName2.Size = new System.Drawing.Size(40, 13);
             this.labelName2.TabIndex = 14;
@@ -116,7 +116,7 @@
             // labelName3
             // 
             this.labelName3.AutoSize = true;
-            this.labelName3.Location = new System.Drawing.Point(491, 194);
+            this.labelName3.Location = new System.Drawing.Point(491, 179);
             this.labelName3.Name = "labelName3";
             this.labelName3.Size = new System.Drawing.Size(40, 13);
             this.labelName3.TabIndex = 15;
@@ -125,7 +125,7 @@
             // labelName4
             // 
             this.labelName4.AutoSize = true;
-            this.labelName4.Location = new System.Drawing.Point(570, 250);
+            this.labelName4.Location = new System.Drawing.Point(570, 240);
             this.labelName4.Name = "labelName4";
             this.labelName4.Size = new System.Drawing.Size(40, 13);
             this.labelName4.TabIndex = 16;
@@ -151,16 +151,6 @@
             this.panelStatus.Size = new System.Drawing.Size(308, 115);
             this.panelStatus.TabIndex = 18;
             // 
-            // labelRound
-            // 
-            this.labelRound.AutoSize = true;
-            this.labelRound.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRound.Location = new System.Drawing.Point(4, 4);
-            this.labelRound.Name = "labelRound";
-            this.labelRound.Size = new System.Drawing.Size(49, 13);
-            this.labelRound.TabIndex = 0;
-            this.labelRound.Text = "Round #";
-            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
@@ -170,6 +160,16 @@
             this.labelStatus.Size = new System.Drawing.Size(46, 13);
             this.labelStatus.TabIndex = 1;
             this.labelStatus.Text = "-------------";
+            // 
+            // labelRound
+            // 
+            this.labelRound.AutoSize = true;
+            this.labelRound.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelRound.Location = new System.Drawing.Point(4, 4);
+            this.labelRound.Name = "labelRound";
+            this.labelRound.Size = new System.Drawing.Size(49, 13);
+            this.labelRound.TabIndex = 0;
+            this.labelRound.Text = "Round #";
             // 
             // FormJeu
             // 
