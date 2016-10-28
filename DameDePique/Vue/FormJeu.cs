@@ -108,11 +108,29 @@ namespace DameDePique
                     // Remove from Dictionnary mesCartes
                     mesCartes.Remove(pictureBox);
                     jeu.Player.Paquet.Remove(carte);
+                    //TogglePictureBoxesDeck(false); // Disable pictureboxes du joueur principal 
                 }
                 else {
                     // Cancel the event 
                     MessageBox.Show("La Carte choisit n'est pas de la Couleur: " + jeu.Suit, "Warning");
                     return; 
+                }
+            }
+        }
+
+        /// <summary>
+        /// Disable ou Enable les pictureboxes du joueur Apres son choix 
+        /// </summary>
+        private void TogglePictureBoxesDeck(bool disabled) {
+            if (disabled) {
+                foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes)  {
+                    entry.Key.Enabled = true;
+                }
+            }
+            else {
+                foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
+                    // Ou sinon Disable 
+                    entry.Key.Enabled = false;
                 }
             }
         }
@@ -156,14 +174,14 @@ namespace DameDePique
             labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement;
         }
 
-        private void Start() {
+        private async void Start() {
             while (!jeu.Fin) {
-                Play();
+                await Play();
             }
         }
 
         // Simulation d'un Round
-        private async void Play() {
+        private async Task Play() {
             this.jeu.OrderListAvecPos();
             buttonGo.Enabled = false;
             // Montre et update le positionnement de chaque joueur dans le label approprié
@@ -171,10 +189,12 @@ namespace DameDePique
             // Nouveau Round
             this.round++;
             labelRound.Text = "Round #" + round;
-
+      
             foreach (Joueur joueur in jeu.ListeDesJoueurs) {
                 // if c'est le tour du Joueur non-ordi 
                 if (joueur.Equals(jeu.Player)) {
+                    // Enable if player's turn 
+                    TogglePictureBoxesDeck(true); // Enable PictureBoxes
                     // Afin de get le nb de PictureBoxes restant
                     List<PictureBox> restant = new List<PictureBox>();
                     foreach (KeyValuePair<PictureBox, Carte> entry in mesCartes) {
@@ -184,6 +204,7 @@ namespace DameDePique
                 }
                 else {
                     // Les ordinateurs
+                    await Task.Delay(400);
                     Carte carte = jeu.putCarte(joueur);
                     if (carte == null) {
                         MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte. Cela marque la fin du jeu.", "The end");
@@ -212,19 +233,21 @@ namespace DameDePique
             buttonGo.Enabled = false;
 
             // Attend avant d'enlever les images 
-            await Task.Delay(12500);
+            await Task.Delay(1080);
             for (int i = 0; i < pictureBoxes.Length; i++) {
                 pictureBoxes[i].Image = null;
             }
-        }
 
+            // read some data from device; we need to wait for this to return
+            await Play();
+        }
 
         // First 
         private void FormJeu_Shown(object sender, EventArgs e) {
             // Play qu'un seul round
-            Play();
+            //Play();
             // Play la game jusqu'a la fin
-            // Start();
+            Start();
         }
     }
 }
