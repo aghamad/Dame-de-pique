@@ -198,6 +198,43 @@ namespace ClassLibrary
             ListeDesJoueurs.Sort();
         }
 
+        public Carte PutCarte(Joueur joueur) {
+            Carte carte = null;
+            List<int> couleursRestant = joueur.Couleurs; // en int 
+            List<Carte> paquetDuJoueur = joueur.Paquet;
+            List<Carte> cartesValide = new List<Carte>();
+            // Met les cartes qui peuvent etre joue dans une Liste [cartesValide]
+            foreach (Carte card in paquetDuJoueur) {
+                if (card.Color.Equals(this.Suit)) {
+                    cartesValide.Add(card);
+                }
+            }
+
+            if (cartesValide.Count != 0) {
+                carte = cartesValide[random.Next(cartesValide.Count)]; 
+                ListeCartesEnJeu.Add(carte, joueur);
+                joueur.Paquet.Remove(carte);
+            } else if (cartesValide.Count == 0 && couleursRestant.Count != 0) {
+                int index = (int) Suit;
+                couleursRestant.Remove(index);
+                int indexCouleur = joueur.Couleurs[random.Next(couleursRestant.Count)];
+                this.Suit = (Couleur) indexCouleur;
+
+                // Pour ajoute une nouvelle carte de cette suite
+                // cartesValides est a 0 ici 
+                foreach (Carte card in paquetDuJoueur)  {
+                    if (card.Color.Equals(this.Suit)){
+                        cartesValide.Add(card);
+                    }
+                }
+                carte = cartesValide[random.Next(cartesValide.Count)];
+            }
+
+            // return null si le joueur n'a plus de carte 
+            return carte;
+        }
+
+        // Methode Depricated 
         /// <summary>
         /// Methode Ordinateur
         /// A tour de role Thread.sleep pour les Ordinateurs
@@ -216,13 +253,11 @@ namespace ClassLibrary
                 }
             }
             // Si elle n'est pas vide. Cela dit que le Joueur-Ordi a une carte de la couleur en question qui peut etre joue
-            if (cartesValide.Count != 0)
-            {
+            if (cartesValide.Count != 0) {
                 carte = cartesValide[random.Next(cartesValide.Count)]; // Incluant 0 
                 ListeCartesEnJeu.Add(carte, joueur);
                 joueur.Paquet.Remove(carte);
-            } else if (paquetDuJoueur.Count != 0)
-            {
+            } else if (paquetDuJoueur.Count != 0) {
                 // Il n'a plus de Cette couleur mais que son paquet n'est pas encore vide
                 // Get l'index de la Couleur
                 int index = (int) Suit;

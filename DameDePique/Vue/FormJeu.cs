@@ -56,9 +56,13 @@ namespace DameDePique
                 // Player , pictureBoxMyCarte 
                 mesPictureBoxes.Add(jeu.ListeDesJoueurs[i], pictureBoxes[i]);
             }
-
             // Les Cartes du Joueur 
             InitializeMesCartes();
+
+            Console.WriteLine("Pique: " + (int)Couleur.Pique);
+            Console.WriteLine("Trefle: " + (int)Couleur.Trefle);
+            Console.WriteLine("Couer: " + (int)Couleur.Coeur);
+            Console.WriteLine("Carreau: " + (int)Couleur.Carreau);
         }
 
         /// <summary>
@@ -189,10 +193,10 @@ namespace DameDePique
         // Update Form
         private void UpdateTable() {
             // Update Positionnement dans le form 
-            labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement + "\nPoints:" + jeu.Player.Pointage;
-            labelName2.Text = "Nom : " + jeu.PlayerAhmad.Nom + "\nPosition:  " + jeu.PlayerAhmad.Positionnement + "\nPoints:" + jeu.PlayerAhmad.Pointage;
-            labelName3.Text = "Nom : " + jeu.PlayerNassim.Nom + "\nPosition:  " + jeu.PlayerNassim.Positionnement + "\nPoints:" + jeu.PlayerNassim.Pointage;
-            labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement + "\nPoints:" + jeu.PlayerHalim.Pointage;
+            labelName1.Text = "Nom : " + jeu.Player.Nom + "\nPosition:  " + jeu.Player.Positionnement + "\nPoints: " + jeu.Player.Pointage;
+            labelName2.Text = "Nom : " + jeu.PlayerAhmad.Nom + "\nPosition:  " + jeu.PlayerAhmad.Positionnement + "\nPoints: " + jeu.PlayerAhmad.Pointage;
+            labelName3.Text = "Nom : " + jeu.PlayerNassim.Nom + "\nPosition:  " + jeu.PlayerNassim.Positionnement + "\nPoints: " + jeu.PlayerNassim.Pointage;
+            labelName4.Text = "Nom : " + jeu.PlayerHalim.Nom + "\nPosition:  " + jeu.PlayerHalim.Positionnement + "\nPoints: " + jeu.PlayerHalim.Pointage;
         }
 
         private async void Start() {
@@ -226,9 +230,9 @@ namespace DameDePique
                 else {
                     // Les ordinateurs
                     await Task.Delay(400);
-                    Carte carte = jeu.putCarte(joueur);
+                    Carte carte = jeu.PutCarte(joueur);
                     if (carte == null) {
-                        MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte. Cela marque la fin du jeu.", "The end");
+                        MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte.\nCela marque la fin du jeu.", "The end");
                         this.jeu.Fin = true;
                     }
                     else {
@@ -265,9 +269,6 @@ namespace DameDePique
 
         // First 
         private void FormJeu_Shown(object sender, EventArgs e) {
-            // Play qu'un seul round
-            //Play();
-            // Play la game jusqu'a la fin
             Start();
         }
     }
