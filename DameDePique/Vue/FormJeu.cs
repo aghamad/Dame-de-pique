@@ -12,7 +12,8 @@ namespace DameDePique
     public partial class FormJeu : Form
     {
         private Jeu jeu;
-        private string pathCarteImages;
+        // Path de tout les images 
+        private string path;
         // Les Cartes du Joueur
         private Dictionary<PictureBox, Carte> mesCartes;
         // Les Quatres PictureBoxes qui seront en jeu 
@@ -22,20 +23,27 @@ namespace DameDePique
         //Round
         private int round = 0;
 
-        public FormJeu(Joueur joueur) {
+        // Pour votre joueur
+        string[] noms = new string[4] { "El Patrón", "El Chapo", "Raymond", "Yamabishi" };
+        string[] images = new string[4] { "criminel0.jpg", "criminel1.jpg", "criminel2.jpg", "criminel3.jpg"};
+
+        public FormJeu(int pos) {
             InitializeComponent();
             // Disable resize
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             // Path
-            this.pathCarteImages = Application.StartupPath + @"\CarteImages\";
+            path = Application.StartupPath + @"\Resources\";
 
             // Ouvre form de style ou l'usager choisit son bonhomme et ecrit son nom (a faire)
-            Joueur player = new Joueur("Moi", "image.png");
+            Joueur player = initJoueur(pos);
 
             // Commencement du jeu / Intialize le Jeu avec le Joueur 
             this.jeu = new Jeu(player);
+            // Profile
+            pictureBoxProfile.Image = Image.FromFile(path + jeu.Player.Image);
+            this.path = Application.StartupPath + @"\CarteImages\";
 
             // Pour le Jeu les 4 Cartes qui seront en Jeu 
             this.pictureBoxes = new PictureBox[] { pictureBoxMyCarte, pictureBox2, pictureBox3, pictureBox4}; 
@@ -53,6 +61,17 @@ namespace DameDePique
             InitializeMesCartes();
         }
 
+        /// <summary>
+        /// Init un nouveau joueur bandit avec sa position
+        /// </summary>
+        /// <param name="pos"> Position du joueur  </param>
+        /// <returns> Le Joueur bandit </returns>
+        private Joueur initJoueur(int pos) {
+            Joueur joueur = new Joueur(noms[pos], images[pos]);
+            return joueur;
+        }
+
+
         // Only called once / In order to Update the Panel / Create an Update method
         private void InitializeMesCartes() {
             this.mesCartes = new Dictionary<PictureBox, Carte>();
@@ -65,7 +84,7 @@ namespace DameDePique
                     SizeMode = PictureBoxSizeMode.AutoSize
                 };
                 // Image de la Carte
-                pictureBox.Image = Image.FromFile(pathCarteImages + jeu.Player.Paquet[i].Image);
+                pictureBox.Image = Image.FromFile(path + jeu.Player.Paquet[i].Image);
                 // Click Event 
                 pictureBox.Click += new System.EventHandler(Carte_Click);
                 mesCartes.Add(pictureBox, jeu.Player.Paquet[i]);
@@ -101,7 +120,7 @@ namespace DameDePique
                 Carte carte = GetCarteWithPicBox(pictureBox);
                 if (PutMyCarte(carte)) {
                     DisablePictureBoxes();
-                    mesPictureBoxes[jeu.Player].Image = Image.FromFile(pathCarteImages + carte.Image);
+                    mesPictureBoxes[jeu.Player].Image = Image.FromFile(path + carte.Image);
                     // Remove from Runtime
                     pictureBox.Click -= new System.EventHandler(this.Carte_Click);
                     panelDisplay.Controls.Remove(pictureBox);
@@ -215,7 +234,7 @@ namespace DameDePique
                     else {
                         // Cette line de code est dans la methode putCarte(joueur) : jeu.ListeCartesEnJeu.Add(carte, joueur);
                         // Set dans son pictureBox
-                        mesPictureBoxes[joueur].Image = Image.FromFile(pathCarteImages + carte.Image);
+                        mesPictureBoxes[joueur].Image = Image.FromFile(path + carte.Image);
                         // Il n'a plus de cette carte
                         joueur.Paquet.Remove(carte);
                     }

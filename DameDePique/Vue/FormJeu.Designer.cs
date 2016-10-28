@@ -41,16 +41,19 @@
             this.panelStatus = new System.Windows.Forms.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelRound = new System.Windows.Forms.Label();
+            this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMyCarte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panelStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxMyCarte
             // 
-            this.pictureBoxMyCarte.BackColor = System.Drawing.Color.Green;
+            this.pictureBoxMyCarte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBoxMyCarte.Location = new System.Drawing.Point(494, 345);
             this.pictureBoxMyCarte.Name = "pictureBoxMyCarte";
             this.pictureBoxMyCarte.Size = new System.Drawing.Size(73, 97);
@@ -59,7 +62,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Green;
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox2.Location = new System.Drawing.Point(415, 286);
             this.pictureBox2.Name = "pictureBox2";
@@ -69,7 +72,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Green;
+            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox3.Location = new System.Drawing.Point(494, 221);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(73, 97);
@@ -78,7 +81,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Green;
+            this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox4.Location = new System.Drawing.Point(573, 286);
             this.pictureBox4.Name = "pictureBox4";
@@ -89,7 +92,7 @@
             // panelDisplay
             // 
             this.panelDisplay.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelDisplay.BackColor = System.Drawing.Color.DarkGreen;
+            this.panelDisplay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panelDisplay.Location = new System.Drawing.Point(21, 613);
             this.panelDisplay.Name = "panelDisplay";
             this.panelDisplay.Size = new System.Drawing.Size(1031, 98);
@@ -142,7 +145,7 @@
             // 
             // panelStatus
             // 
-            this.panelStatus.BackColor = System.Drawing.Color.Green;
+            this.panelStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panelStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelStatus.Controls.Add(this.labelStatus);
             this.panelStatus.Controls.Add(this.labelRound);
@@ -171,6 +174,24 @@
             this.labelRound.TabIndex = 0;
             this.labelRound.Text = "Round #";
             // 
+            // pictureBoxProfile
+            // 
+            this.pictureBoxProfile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBoxProfile.Location = new System.Drawing.Point(21, 407);
+            this.pictureBoxProfile.Name = "pictureBoxProfile";
+            this.pictureBoxProfile.Size = new System.Drawing.Size(158, 200);
+            this.pictureBoxProfile.TabIndex = 19;
+            this.pictureBoxProfile.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 345);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "You!";
+            // 
             // FormJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,6 +199,8 @@
             this.BackgroundImage = global::DameDePique.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1075, 709);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBoxProfile);
             this.Controls.Add(this.panelStatus);
             this.Controls.Add(this.buttonGo);
             this.Controls.Add(this.labelName4);
@@ -199,6 +222,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +242,8 @@
         private System.Windows.Forms.Panel panelStatus;
         private System.Windows.Forms.Label labelRound;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.PictureBox pictureBoxProfile;
+        private System.Windows.Forms.Label label1;
     }
 }
 

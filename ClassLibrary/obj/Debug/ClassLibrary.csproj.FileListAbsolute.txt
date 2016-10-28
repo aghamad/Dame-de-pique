@@ -11,6 +11,5 @@ C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\obj\Debug\ClassLibrary.dll
 C:\Users\user\Source\Repos\Dame-de-pique\ClassLibrary\obj\Debug\ClassLibrary.pdb
 C:\Users\201467122\Source\Repos\Dame-de-pique-New\ClassLibrary\bin\Debug\ClassLibrary.dll
 C:\Users\201467122\Source\Repos\Dame-de-pique-New\ClassLibrary\bin\Debug\ClassLibrary.pdb
-C:\Users\201467122\Source\Repos\Dame-de-pique-New\ClassLibrary\obj\Debug\ClassLibrary.csprojResolveAssemblyReference.cache
 C:\Users\201467122\Source\Repos\Dame-de-pique-New\ClassLibrary\obj\Debug\ClassLibrary.dll
 C:\Users\201467122\Source\Repos\Dame-de-pique-New\ClassLibrary\obj\Debug\ClassLibrary.pdb
