@@ -200,9 +200,9 @@ namespace DameDePique
         }
 
         private async void Start() {
-            while (!jeu.Fin) {
+         //   while (!jeu.Fin) {
                 await Play();
-            }
+          //  }
         }
 
         // Simulation d'un Round
