@@ -159,6 +159,17 @@ namespace ClassLibrary
             return null;
         }
 
+        // Perdant
+        public Joueur GetPerdant()  {
+            Joueur perdant = ListeDesJoueurs[0]; // Pointeur 
+            foreach (Joueur joueur in ListeDesJoueurs) {
+                if (perdant.Pointage < joueur.Pointage) {
+                    perdant = joueur;
+                }
+            }
+            return perdant;
+        }
+
         // Distribue les cartes aux Joueurs
         public void distribuer() {
             foreach (Joueur joueur in ListeDesJoueurs) {

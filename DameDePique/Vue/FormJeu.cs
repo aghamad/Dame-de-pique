@@ -58,11 +58,6 @@ namespace DameDePique
             }
             // Les Cartes du Joueur 
             InitializeMesCartes();
-
-            Console.WriteLine("Pique: " + (int)Couleur.Pique);
-            Console.WriteLine("Trefle: " + (int)Couleur.Trefle);
-            Console.WriteLine("Couer: " + (int)Couleur.Coeur);
-            Console.WriteLine("Carreau: " + (int)Couleur.Carreau);
         }
 
         /// <summary>
@@ -200,9 +195,11 @@ namespace DameDePique
         }
 
         private async void Start() {
-         //   while (!jeu.Fin) {
-                await Play();
-          //  }
+            await Play();
+
+            MessageBox.Show("fin");
+            Joueur perdant = jeu.GetPerdant();
+            labelStatus.Text = String.Format("Le joueur {0} a perdu avec {1} points", perdant.Nom, perdant.Pointage);      
         }
 
         // Simulation d'un Round
@@ -232,7 +229,7 @@ namespace DameDePique
                     await Task.Delay(400);
                     Carte carte = jeu.PutCarte(joueur);
                     if (carte == null) {
-                        MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte.\nCela marque la fin du jeu.", "The end");
+                        // MessageBox.Show("Le joueur " + joueur.Nom + " n'a plus de carte.\nCela marque la fin du jeu.", "The end");
                         this.jeu.Fin = true;
                     }
                     else {
